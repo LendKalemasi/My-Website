@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lend Kalemasi | Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap");
+
+    :root {
+      --bg-start: #fff6e8;
+      --bg-end: #e9f4ff;
+      --text: #172235;
+      --muted: #5a6578;
+      --accent: #0f766e;
+      --accent-strong: #0b5f58;
+      --accent-soft: #dff4ef;
+      --card-bg: rgba(255, 255, 255, 0.82);
+      --border: rgba(23, 34, 53, 0.12);
+      --radius: 18px;
+      --shadow: 0 20px 45px rgba(15, 23, 42, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Manrope", "Segoe UI", sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      z-index: -1;
+      border-radius: 999px;
+      filter: blur(2px);
+      pointer-events: none;
+    }
+
+    body::before {
+      width: 380px;
+      height: 380px;
+      left: -120px;
+      top: -140px;
+      background: radial-gradient(circle, rgba(15, 118, 110, 0.2), transparent 72%);
+    }
+
+    body::after {
+      width: 500px;
+      height: 500px;
+      right: -180px;
+      bottom: -180px;
+      background: radial-gradient(circle, rgba(217, 119, 6, 0.16), transparent 74%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    main {
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 30px 20px 70px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 38px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.62);
+      backdrop-filter: blur(8px);
+      animation: fade-up 0.5s ease-out both;
+    }
+
+    .logo {
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    nav a {
+      position: relative;
+      padding-bottom: 2px;
+      transition: color 0.2s ease;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--accent-strong);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .hero {
+      padding: 34px 28px;
+      border-radius: 30px;
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(232, 249, 244, 0.84)),
+        radial-gradient(circle at 10% 12%, rgba(15, 118, 110, 0.12), transparent 40%);
+      box-shadow: var(--shadow);
+      margin-bottom: 34px;
+      animation: fade-up 0.6s ease-out both;
+      animation-delay: 0.1s;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 280px);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .hero-content {
+      min-width: 0;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(2.15rem, 4vw, 3rem);
+      letter-spacing: -0.04em;
+      line-height: 1.08;
+      margin-bottom: 16px;
+      max-width: 15ch;
+    }
+
+    .hero-subtitle {
+      color: var(--muted);
+      max-width: 42rem;
+      font-size: 1rem;
+      margin-bottom: 22px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 0;
+    }
+
+    .photo-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    .photo-frame {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 14px;
+      border: none;
+      background: transparent;
+      overflow: hidden;
+      margin-bottom: 0;
+    }
+
+    .dev-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    section {
+      margin-top: 34px;
+      animation: fade-up 0.6s ease-out both;
+    }
+
+    section:nth-of-type(2) {
+      animation-delay: 0.16s;
+    }
+
+    section:nth-of-type(3) {
+      animation-delay: 0.24s;
+    }
+
+    section:nth-of-type(4) {
+      animation-delay: 0.3s;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 16px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .section-title {
+      font-size: 0.93rem;
+      text-transform: uppercase;
+      letter-spacing: 0.17em;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .section-caption {
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 18px 20px;
+      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.07);
+      backdrop-filter: blur(6px);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 45px rgba(15, 23, 42, 0.11);
+      border-color: rgba(15, 118, 110, 0.3);
+    }
+
+    .project-card {
+      display: block;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .card-title {
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      font-size: 1.06rem;
+      letter-spacing: -0.02em;
+    }
+
+    .card-badge {
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      white-space: nowrap;
+      font-weight: 700;
+    }
+
+    .project-subject {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-strong);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .card-description {
+      font-size: 0.92rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .tag {
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #f3f5f8;
+      border: 1px solid rgba(23, 34, 53, 0.07);
+      font-size: 0.76rem;
+      color: #3e4a62;
+    }
+
+    .links {
+      display: flex;
+      gap: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent-strong);
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 12px;
+    }
+
+    .timeline-marker {
+      margin-top: 7px;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 5px rgba(15, 118, 110, 0.12);
+      flex-shrink: 0;
+    }
+
+    .timeline-content {
+      flex: 1;
+    }
+
+    .timeline-role {
+      font-size: 0.98rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .timeline-company {
+      font-size: 0.9rem;
+      color: #3f4b62;
+      margin-top: 1px;
+    }
+
+    .timeline-meta {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin: 3px 0 8px;
+      font-weight: 500;
+    }
+
+    .timeline-bullets {
+      margin-left: 17px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: grid;
+      gap: 4px;
+    }
+
+    footer {
+      margin-top: 42px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      animation: fade-up 0.7s ease-out both;
+      animation-delay: 0.36s;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    @media (max-width: 700px) {
+      main {
+        padding: 24px 14px 58px;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .hero {
+        padding: 26px 20px;
+      }
+
+      .hero-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-title {
+        font-size: clamp(1.8rem, 10vw, 2.3rem);
+      }
+
+      .timeline-item {
+        gap: 10px;
+      }
+
+      .card {
+        padding: 16px;
+      }
+    }
+
+    @keyframes fade-up {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <nav>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="top">
+      <div class="hero-layout">
+        <div class="hero-content">
+          <div class="hero-pill">
+            <span>Available for internships</span>
+          </div>
+          <h1 class="hero-title">Lend Kalemasi</h1>
+          <h2 class="hero-subtitle">Software Engineer</h2>
+          <p class="hero-subtitle">
+            I enjoy designing and implementing reliable systems, from low-level C programs to full‑stack web
+            projects.
+          </p>
+          <div class="hero-meta">
+            <span>📍 Bremen, DE</span>
+            <span>🎓 BSc Computer Science</span>
+            <span>✉️ <a href="mailto:lendkalemasi@gmail.com">lendkalemasi@gmail.com</a></span>
+            <span>🐙 <a href="https://github.com/LendKalemasi" target="_blank">GitHub</a></span>
+            <span>ℹ️ <a href="https://www.linkedin.com/in/lend-kalemasi-940168328/" target="_blank">LinkedIn</a></span>
+          </div>
+        </div>
+        <aside class="photo-panel" aria-label="Developer photo">
+          <div class="photo-frame">
+            <img class="dev-photo" src="photoCV.JPG" alt="Lend Kalemasi portrait" />
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-header">
+        <h2 class="section-title">Projects</h2>
+        <p class="section-caption">One featured project.</p>
+      </div>
+      <div class="grid">
+        <a class="card project-card" href="https://github.com/lostnfound-dev-web/Lost-Found" target="_blank" rel="noopener noreferrer" aria-label="Open Lost &amp; Found Web Database on GitHub">
+          <div class="card-header">
+            <h3 class="card-title">Lost &amp; Found Web Database</h3>
+            <span class="card-badge">Databases</span>
+          </div>
+          <p class="project-subject">DBMS</p>
+          <p class="card-description">
+            The project is a university lost and found system where students can report, search, and track items with details like description, photo, and location. Administrators verify reports and update statuses, ensuring accuracy. It provides one reliable place to reduce confusion and help students recover belongings easily.
+          </p>
+          <div class="card-meta">
+            <div class="tags">
+              <span class="tag">HTML</span>
+              <span class="tag">PHP</span>
+              <span class="tag">SQL</span>
+              <span class="tag">JavaScript</span>
+            </div>
+            <div class="links">
+              <span>Open Project</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="section-header">
+        <h2 class="section-title">Experience</h2>
+        <p class="section-caption">Work experience.</p>
+      </div>
+      <div class="card">
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="timeline-role">Website and App Bug Tester (testIO)</div>
+              <div class="timeline-company">Remote</div>
+              <div class="timeline-meta">Aug 2025 - Dec 2025</div>
+              <ul class="timeline-bullets">
+                <li>Tested and documented bugs in web and mobile applications prior to release.</li>
+                <li>Collaborated with developers to reproduce and resolve issues, ensuring smooth functionality.</li>
+                <li>Conducted usability testing to enhance the overall user experience.</li>
+                <li>Gained experience in QA processes and attention to technical detail.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="timeline-role">IT Intern ('Artan Ngjeci' Transport &amp; Logistics)</div>
+              <div class="timeline-company">Durres, Albania</div>
+              <div class="timeline-meta">Jun 2025 - Aug 2025</div>
+              <ul class="timeline-bullets">
+                <li>Maintained and monitored the company server for daily operations.</li>
+                <li>Managed user accounts, access rights, and system settings.</li>
+                <li>Resolved basic server, hardware, and network issues.</li>
+                <li>Provided internal IT support and kept system documentation updated.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="timeline-role">Waiter ('Pelikan' Pastry, 'Royal G Deluxe' Hotel, 'Melissa' Hotel &amp; Residence) (Seasonal)</div>
+              <div class="timeline-company">Durres, Albania</div>
+              <div class="timeline-meta">Jun 2022 - Aug 2025</div>
+              <ul class="timeline-bullets">
+                <li>Started working at a young age, developing a strong work ethic and sense of responsibility early on.</li>
+                <li>Worked in fast-paced environments with diverse international customers.</li>
+                <li>Strengthened teamwork, communication, and problem-solving skills under pressure.</li>
+                <li>Developed discipline and reliability through consistent employment.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-header">
+        <h2 class="section-title">Contact</h2>
+        <p class="section-caption">Let’s work on something together.</p>
+      </div>
+      <div class="card">
+        <p class="card-description">
+          If you’d like to talk about a project, internship, or collaboration, feel free to reach out.
+        </p>
+        <div class="card-meta">
+          <span>✉️ <a href="mailto:lendkalemasi@gmail.com">lendkalemasi@gmail.com</a></span>
+          <div class="links">
+            <a href="https://github.com/LendKalemasi" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/lend-kalemasi-940168328/" target="_blank">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span>© <span id="year"></span> Lend Kalemasi</span>
+      <div class="footer-links">
+        <a href="#top">Back to top</a>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
