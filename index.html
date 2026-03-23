@@ -10,17 +10,18 @@
     @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap");
 
     :root {
-      --bg-start: #fff6e8;
-      --bg-end: #e9f4ff;
-      --text: #172235;
-      --muted: #5a6578;
-      --accent: #0f766e;
-      --accent-strong: #0b5f58;
-      --accent-soft: #dff4ef;
-      --card-bg: rgba(255, 255, 255, 0.82);
-      --border: rgba(23, 34, 53, 0.12);
+      --bg-start: #051326;
+      --bg-mid: #0b2442;
+      --bg-end: #123867;
+      --text: #e8f0ff;
+      --muted: #b9c9e5;
+      --accent: #7ec8ff;
+      --accent-strong: #cbe7ff;
+      --accent-soft: rgba(126, 200, 255, 0.16);
+      --card-bg: rgba(10, 30, 56, 0.68);
+      --border: rgba(203, 231, 255, 0.2);
       --radius: 18px;
-      --shadow: 0 20px 45px rgba(15, 23, 42, 0.1);
+      --shadow: 0 24px 56px rgba(0, 8, 20, 0.52);
     }
 
     * {
@@ -37,7 +38,10 @@
       font-family: "Manrope", "Segoe UI", sans-serif;
       color: var(--text);
       line-height: 1.6;
-      background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+      background:
+        radial-gradient(circle at 14% 12%, rgba(126, 200, 255, 0.14), transparent 36%),
+        radial-gradient(circle at 88% 82%, rgba(115, 150, 255, 0.18), transparent 40%),
+        linear-gradient(140deg, var(--bg-start), var(--bg-mid) 48%, var(--bg-end));
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
@@ -58,7 +62,7 @@
       height: 380px;
       left: -120px;
       top: -140px;
-      background: radial-gradient(circle, rgba(15, 118, 110, 0.2), transparent 72%);
+      background: radial-gradient(circle, rgba(126, 200, 255, 0.28), transparent 72%);
     }
 
     body::after {
@@ -66,7 +70,7 @@
       height: 500px;
       right: -180px;
       bottom: -180px;
-      background: radial-gradient(circle, rgba(217, 119, 6, 0.16), transparent 74%);
+      background: radial-gradient(circle, rgba(160, 120, 255, 0.18), transparent 74%);
     }
 
     a {
@@ -88,8 +92,11 @@
       padding: 12px 14px;
       border: 1px solid var(--border);
       border-radius: 14px;
-      background: rgba(255, 255, 255, 0.62);
-      backdrop-filter: blur(8px);
+      background: rgba(5, 19, 38, 0.65);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 10px;
+      z-index: 11;
       animation: fade-up 0.5s ease-out both;
     }
 
@@ -111,8 +118,9 @@
 
     nav a {
       position: relative;
-      padding-bottom: 2px;
-      transition: color 0.2s ease;
+      padding: 5px 10px;
+      border-radius: 999px;
+      transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
     }
 
     nav a::after {
@@ -128,9 +136,20 @@
 
     nav a:hover {
       color: var(--accent-strong);
+      background: rgba(126, 200, 255, 0.12);
+      transform: translateY(-1px);
     }
 
     nav a:hover::after {
+      width: 100%;
+    }
+
+    nav a.active {
+      color: var(--accent-strong);
+      background: rgba(126, 200, 255, 0.18);
+    }
+
+    nav a.active::after {
       width: 100%;
     }
 
@@ -139,8 +158,8 @@
       border-radius: 30px;
       border: 1px solid var(--border);
       background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(232, 249, 244, 0.84)),
-        radial-gradient(circle at 10% 12%, rgba(15, 118, 110, 0.12), transparent 40%);
+        linear-gradient(135deg, rgba(10, 30, 56, 0.9), rgba(17, 49, 88, 0.82)),
+        radial-gradient(circle at 10% 12%, rgba(126, 200, 255, 0.2), transparent 40%);
       box-shadow: var(--shadow);
       margin-bottom: 34px;
       animation: fade-up 0.6s ease-out both;
@@ -171,6 +190,7 @@
       background: var(--accent-soft);
       color: var(--accent-strong);
       margin-bottom: 16px;
+      border: 1px solid rgba(203, 231, 255, 0.35);
     }
 
     .hero-title {
@@ -216,10 +236,11 @@
       width: 100%;
       aspect-ratio: 1 / 1;
       border-radius: 14px;
-      border: none;
-      background: transparent;
+      border: 1px solid rgba(203, 231, 255, 0.26);
+      background: rgba(255, 255, 255, 0.04);
       overflow: hidden;
       margin-bottom: 0;
+      box-shadow: 0 18px 40px rgba(2, 10, 24, 0.45);
     }
 
     .dev-photo {
@@ -278,15 +299,38 @@
       border-radius: var(--radius);
       border: 1px solid var(--border);
       padding: 18px 20px;
-      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.07);
-      backdrop-filter: blur(6px);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      box-shadow: 0 14px 34px rgba(0, 8, 20, 0.38);
+      backdrop-filter: blur(10px);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      transform-style: preserve-3d;
+      will-change: transform;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(126, 200, 255, 0.26), transparent 45%);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
     }
 
     .card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 22px 45px rgba(15, 23, 42, 0.11);
-      border-color: rgba(15, 118, 110, 0.3);
+      box-shadow: 0 24px 56px rgba(0, 8, 20, 0.56);
+      border-color: rgba(126, 200, 255, 0.42);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card:focus-within {
+      outline: 2px solid rgba(126, 200, 255, 0.7);
+      outline-offset: 2px;
     }
 
     .project-card {
@@ -353,10 +397,10 @@
     .tag {
       padding: 3px 9px;
       border-radius: 999px;
-      background: #f3f5f8;
-      border: 1px solid rgba(23, 34, 53, 0.07);
+      background: rgba(126, 200, 255, 0.1);
+      border: 1px solid rgba(203, 231, 255, 0.24);
       font-size: 0.76rem;
-      color: #3e4a62;
+      color: #d7e8ff;
     }
 
     .links {
@@ -400,7 +444,7 @@
 
     .timeline-company {
       font-size: 0.9rem;
-      color: #3f4b62;
+      color: #b4c9e9;
       margin-top: 1px;
     }
 
@@ -438,6 +482,61 @@
       gap: 12px;
     }
 
+    .interactive-target {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .interactive-target.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .cursor-glow {
+      position: fixed;
+      width: 220px;
+      height: 220px;
+      left: 0;
+      top: 0;
+      border-radius: 999px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.55;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(126, 200, 255, 0.18), transparent 70%);
+      transition: transform 0.1s linear;
+    }
+
+    .to-top {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid rgba(203, 231, 255, 0.3);
+      background: rgba(8, 28, 54, 0.82);
+      color: #e8f0ff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+      pointer-events: none;
+      z-index: 15;
+    }
+
+    .to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .to-top:hover {
+      background: rgba(16, 44, 82, 0.96);
+    }
+
     @media (max-width: 700px) {
       main {
         padding: 24px 14px 58px;
@@ -447,6 +546,7 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
+        top: 6px;
       }
 
       .hero {
@@ -468,6 +568,10 @@
       .card {
         padding: 16px;
       }
+
+      .cursor-glow {
+        display: none;
+      }
     }
 
     @keyframes fade-up {
@@ -483,6 +587,7 @@
   </style>
 </head>
 <body>
+  <div class="cursor-glow" aria-hidden="true"></div>
   <main>
     <header>
       <nav>
@@ -492,7 +597,7 @@
       </nav>
     </header>
 
-    <section class="hero" id="top">
+    <section class="hero interactive-target" id="top">
       <div class="hero-layout">
         <div class="hero-content">
           <div class="hero-pill">
@@ -520,7 +625,7 @@
       </div>
     </section>
 
-    <section id="projects">
+    <section id="projects" class="interactive-target">
       <div class="section-header">
         <h2 class="section-title">Projects</h2>
         <p class="section-caption">Two featured projects.</p>
@@ -573,7 +678,7 @@
       </div>
     </section>
 
-    <section id="experience">
+    <section id="experience" class="interactive-target">
       <div class="section-header">
         <h2 class="section-title">Experience</h2>
         <p class="section-caption">Work experience.</p>
@@ -628,7 +733,7 @@
       </div>
     </section>
 
-    <section id="contact">
+    <section id="contact" class="interactive-target">
       <div class="section-header">
         <h2 class="section-title">Contact</h2>
         <p class="section-caption">Let’s work on something together.</p>
@@ -655,8 +760,80 @@
     </footer>
   </main>
 
+  <button class="to-top" id="toTopBtn" type="button" aria-label="Back to top">↑</button>
+
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    const sections = Array.from(document.querySelectorAll("section[id]"));
+    const navLinks = Array.from(document.querySelectorAll('nav a[href^="#"]'));
+    const toTopBtn = document.getElementById("toTopBtn");
+    const glow = document.querySelector(".cursor-glow");
+    const revealTargets = Array.from(document.querySelectorAll(".interactive-target, .card, .timeline-item"));
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        const sectionId = entry.target.getAttribute("id");
+        navLinks.forEach((link) => {
+          const isActive = link.getAttribute("href") === `#${sectionId}`;
+          link.classList.toggle("active", isActive);
+        });
+      });
+    }, { rootMargin: "-35% 0px -45% 0px", threshold: 0.15 });
+
+    sections.forEach((section) => sectionObserver.observe(section));
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealTargets.forEach((target) => {
+      target.classList.add("interactive-target");
+      revealObserver.observe(target);
+    });
+
+    document.addEventListener("scroll", () => {
+      const show = window.scrollY > 320;
+      toTopBtn.classList.toggle("visible", show);
+    });
+
+    toTopBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    document.querySelectorAll(".card").forEach((card) => {
+      card.addEventListener("mousemove", (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        const rotateY = ((x / rect.width) - 0.5) * 5;
+        const rotateX = (((y / rect.height) - 0.5) * -5);
+
+        card.style.setProperty("--mx", `${(x / rect.width) * 100}%`);
+        card.style.setProperty("--my", `${(y / rect.height) * 100}%`);
+        card.style.transform = `translateY(-4px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+      });
+
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "translateY(0) rotateX(0deg) rotateY(0deg)";
+      });
+    });
+
+    window.addEventListener("mousemove", (event) => {
+      if (!glow) {
+        return;
+      }
+      glow.style.transform = `translate(${event.clientX}px, ${event.clientY}px) translate(-50%, -50%)`;
+    });
   </script>
 </body>
 </html>
