@@ -84,6 +84,18 @@
       padding: 30px 20px 70px;
     }
 
+    /* ── Particle Canvas ── */
+    #particle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* ── Header ── */
     header {
       display: flex;
       justify-content: space-between;
@@ -153,6 +165,23 @@
       width: 100%;
     }
 
+    /* ── Mobile Menu Toggle ── */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 10px;
+      color: var(--text);
+      font-size: 1.3rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .menu-toggle:hover {
+      background: rgba(126, 200, 255, 0.12);
+    }
+
+    /* ── Hero ── */
     .hero {
       padding: 34px 28px;
       border-radius: 30px;
@@ -191,6 +220,29 @@
       color: var(--accent-strong);
       margin-bottom: 16px;
       border: 1px solid rgba(203, 231, 255, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-pill .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4ade80;
+      position: relative;
+    }
+    .hero-pill .pulse-dot::before {
+      content: "";
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: rgba(74, 222, 128, 0.4);
+      animation: pulse-ring 2s ease-out infinite;
+    }
+
+    @keyframes pulse-ring {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(2.5); opacity: 0; }
     }
 
     .hero-title {
@@ -207,6 +259,21 @@
       max-width: 42rem;
       font-size: 1rem;
       margin-bottom: 22px;
+    }
+
+    /* ── Typed cursor ── */
+    .typed-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: var(--accent);
+      margin-left: 2px;
+      animation: blink 0.8s steps(1) infinite;
+      vertical-align: text-bottom;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
     }
 
     .hero-meta {
@@ -241,6 +308,12 @@
       overflow: hidden;
       margin-bottom: 0;
       box-shadow: 0 18px 40px rgba(2, 10, 24, 0.45);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .photo-frame:hover {
+      transform: scale(1.03) rotateZ(-1deg);
+      box-shadow: 0 24px 60px rgba(2, 10, 24, 0.6), 0 0 40px rgba(126, 200, 255, 0.15);
     }
 
     .dev-photo {
@@ -258,17 +331,9 @@
       scroll-margin-top: 92px;
     }
 
-    section:nth-of-type(2) {
-      animation-delay: 0.16s;
-    }
-
-    section:nth-of-type(3) {
-      animation-delay: 0.24s;
-    }
-
-    section:nth-of-type(4) {
-      animation-delay: 0.3s;
-    }
+    section:nth-of-type(2) { animation-delay: 0.16s; }
+    section:nth-of-type(3) { animation-delay: 0.24s; }
+    section:nth-of-type(4) { animation-delay: 0.3s; }
 
     .section-header {
       display: flex;
@@ -292,12 +357,61 @@
       color: var(--muted);
     }
 
+    /* ── Skills Section ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .skill-category-title {
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+      color: var(--accent-strong);
+    }
+
+    .skill-bar-container {
+      margin-bottom: 12px;
+    }
+
+    .skill-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    .skill-bar-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(126, 200, 255, 0.1);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .skill-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), #a78bfa);
+      width: 0%;
+      transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .skill-bar-fill.animated {
+      width: var(--skill-level);
+    }
+
+    /* ── Grid ── */
     .grid {
       display: grid;
       grid-template-columns: minmax(0, 1fr);
       gap: 16px;
     }
 
+    /* ── Card ── */
     .card {
       background: var(--card-bg);
       border-radius: var(--radius);
@@ -405,6 +519,14 @@
       border: 1px solid rgba(203, 231, 255, 0.24);
       font-size: 0.76rem;
       color: #d7e8ff;
+      transition: background 0.2s, transform 0.2s, border-color 0.2s;
+      cursor: default;
+    }
+
+    .tag:hover {
+      background: rgba(126, 200, 255, 0.22);
+      border-color: rgba(203, 231, 255, 0.5);
+      transform: translateY(-2px) scale(1.05);
     }
 
     .links {
@@ -415,10 +537,38 @@
       color: var(--accent-strong);
     }
 
+    .links span, .links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .link-arrow {
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+
+    .project-card:hover .link-arrow {
+      transform: translateX(4px);
+    }
+
+    /* ── Timeline ── */
     .timeline {
       display: flex;
       flex-direction: column;
       gap: 16px;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 12px;
+      bottom: 12px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), rgba(126, 200, 255, 0.1));
+      border-radius: 999px;
     }
 
     .timeline-item {
@@ -432,8 +582,15 @@
       height: 10px;
       border-radius: 999px;
       background: var(--accent);
-      box-shadow: 0 0 0 5px rgba(15, 118, 110, 0.12);
+      box-shadow: 0 0 0 5px rgba(126, 200, 255, 0.12);
       flex-shrink: 0;
+      z-index: 1;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+
+    .timeline-item:hover .timeline-marker {
+      box-shadow: 0 0 0 8px rgba(126, 200, 255, 0.25);
+      transform: scale(1.3);
     }
 
     .timeline-content {
@@ -467,6 +624,376 @@
       gap: 4px;
     }
 
+    /* ── Contact Form ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .contact-info-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      background: rgba(126, 200, 255, 0.06);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(126, 200, 255, 0.15);
+      background: rgba(126, 200, 255, 0.1);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(185, 201, 229, 0.4);
+    }
+
+    .submit-btn {
+      align-self: flex-start;
+      padding: 10px 28px;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      background: rgba(126, 200, 255, 0.12);
+      color: var(--accent-strong);
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(126, 200, 255, 0.25), rgba(167, 139, 250, 0.2));
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .submit-btn:hover {
+      background: rgba(126, 200, 255, 0.22);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(126, 200, 255, 0.2);
+    }
+
+    .submit-btn:hover::before {
+      opacity: 1;
+    }
+
+    .submit-btn:active {
+      transform: translateY(0px) scale(0.97);
+    }
+
+    .submit-btn .btn-text {
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-success {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      background: rgba(74, 222, 128, 0.12);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      color: #4ade80;
+      font-size: 0.88rem;
+      font-weight: 600;
+      animation: fade-up 0.3s ease-out;
+    }
+
+    .form-success.show {
+      display: flex;
+    }
+
+    /* ── Social Links Enhanced ── */
+    .social-links {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(126, 200, 255, 0.06);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent-strong);
+      transition: all 0.25s ease;
+    }
+
+    .social-link:hover {
+      background: rgba(126, 200, 255, 0.18);
+      border-color: rgba(126, 200, 255, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(126, 200, 255, 0.15);
+    }
+
+    .social-link svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    /* ── Scroll Progress Bar ── */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), #a78bfa, #f472b6);
+      z-index: 100;
+      width: 0%;
+      transition: width 0.05s linear;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* ── Magnetic Button Effect ── */
+    .magnetic {
+      transition: transform 0.2s ease;
+    }
+
+    /* ── Easter Egg / Konami ── */
+    .easter-egg-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(5, 19, 38, 0.92);
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .easter-egg-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .easter-egg-content {
+      text-align: center;
+      animation: fade-up 0.5s ease-out;
+    }
+
+    .easter-egg-content h2 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 2rem;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--accent), #a78bfa, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .easter-egg-content p {
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .easter-egg-close {
+      padding: 8px 24px;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      background: rgba(126, 200, 255, 0.12);
+      color: var(--accent-strong);
+      font-family: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .easter-egg-close:hover {
+      background: rgba(126, 200, 255, 0.25);
+    }
+
+    /* ── Command Palette ── */
+    .command-palette-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 150;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 18vh;
+      background: rgba(5, 19, 38, 0.7);
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .command-palette-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .command-palette {
+      width: 100%;
+      max-width: 520px;
+      background: rgba(10, 30, 56, 0.95);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+      animation: fade-up 0.2s ease-out;
+    }
+
+    .command-palette-input {
+      width: 100%;
+      padding: 16px 20px;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .command-palette-input::placeholder {
+      color: rgba(185, 201, 229, 0.4);
+    }
+
+    .command-palette-results {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .command-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      cursor: pointer;
+      transition: background 0.15s;
+      border-bottom: 1px solid rgba(203, 231, 255, 0.06);
+    }
+
+    .command-item:hover,
+    .command-item.selected {
+      background: rgba(126, 200, 255, 0.1);
+    }
+
+    .command-item-icon {
+      font-size: 1.1rem;
+      width: 24px;
+      text-align: center;
+    }
+
+    .command-item-label {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .command-item-hint {
+      margin-left: auto;
+      font-size: 0.75rem;
+      color: var(--muted);
+      opacity: 0.6;
+    }
+
+    .command-palette-hint {
+      padding: 10px 20px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      opacity: 0.5;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── Theme Switcher (subtle) ── */
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 5px 8px;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(126, 200, 255, 0.12);
+      border-color: rgba(126, 200, 255, 0.35);
+      color: var(--accent-strong);
+    }
+
+    /* ── Counter Animation ── */
+    .stat-number {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent-strong);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 32px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    /* ── Footer ── */
     footer {
       margin-top: 42px;
       padding-top: 24px;
@@ -486,6 +1013,15 @@
       gap: 12px;
     }
 
+    .footer-links a {
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    /* ── Interactive Target for Scroll Reveal ── */
     .interactive-target {
       opacity: 0;
       transform: translateY(16px);
@@ -497,6 +1033,20 @@
       transform: translateY(0);
     }
 
+    /* ── Stagger children ── */
+    .stagger-children > * {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .stagger-children.visible > *:nth-child(1) { transition-delay: 0.05s; opacity: 1; transform: none; }
+    .stagger-children.visible > *:nth-child(2) { transition-delay: 0.1s; opacity: 1; transform: none; }
+    .stagger-children.visible > *:nth-child(3) { transition-delay: 0.15s; opacity: 1; transform: none; }
+    .stagger-children.visible > *:nth-child(4) { transition-delay: 0.2s; opacity: 1; transform: none; }
+    .stagger-children.visible > *:nth-child(5) { transition-delay: 0.25s; opacity: 1; transform: none; }
+
+    /* ── Cursor Glow ── */
     .cursor-glow {
       position: fixed;
       width: 220px;
@@ -509,9 +1059,10 @@
       opacity: 0.55;
       transform: translate(-50%, -50%);
       background: radial-gradient(circle, rgba(126, 200, 255, 0.18), transparent 70%);
-      transition: transform 0.1s linear;
+      transition: transform 0.08s linear;
     }
 
+    /* ── Back to Top ── */
     .to-top {
       position: fixed;
       right: 18px;
@@ -526,7 +1077,7 @@
       cursor: pointer;
       opacity: 0;
       transform: translateY(8px);
-      transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+      transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
       pointer-events: none;
       z-index: 15;
     }
@@ -539,18 +1090,101 @@
 
     .to-top:hover {
       background: rgba(16, 44, 82, 0.96);
+      box-shadow: 0 0 20px rgba(126, 200, 255, 0.2);
     }
 
+    /* ── Kbd shortcut hint ── */
+    .kbd-hint {
+      position: fixed;
+      bottom: 18px;
+      left: 18px;
+      font-size: 0.72rem;
+      color: var(--muted);
+      opacity: 0.35;
+      z-index: 15;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.3s;
+    }
+
+    .kbd-hint:hover {
+      opacity: 0.7;
+    }
+
+    kbd {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(203, 231, 255, 0.2);
+      background: rgba(10, 30, 56, 0.6);
+      font-family: inherit;
+      font-size: 0.7rem;
+    }
+
+    /* ── Toast Notifications ── */
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toast {
+      padding: 12px 20px;
+      border-radius: 12px;
+      background: rgba(10, 30, 56, 0.95);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.85rem;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      animation: toast-in 0.3s ease-out, toast-out 0.3s ease-in 2.7s forwards;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes toast-out {
+      from { opacity: 1; transform: translateX(0); }
+      to { opacity: 0; transform: translateX(40px); }
+    }
+
+    /* ── Responsive ── */
     @media (max-width: 700px) {
       main {
         padding: 24px 14px 58px;
       }
 
       header {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
         gap: 10px;
         top: 6px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      nav {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      nav.open {
+        display: flex;
       }
 
       .hero {
@@ -580,6 +1214,18 @@
       .cursor-glow {
         display: none;
       }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .kbd-hint {
+        display: none;
+      }
+
+      .stats-row {
+        justify-content: center;
+      }
     }
 
     @keyframes fade-up {
@@ -592,53 +1238,160 @@
         transform: translateY(0);
       }
     }
+
+    /* ── Gradient Text Utility ── */
+    .gradient-text {
+      background: linear-gradient(135deg, var(--accent), #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Tooltip ── */
+    [data-tooltip] {
+      position: relative;
+    }
+
+    [data-tooltip]::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      padding: 5px 10px;
+      border-radius: 8px;
+      background: rgba(10, 30, 56, 0.95);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.75rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+      z-index: 20;
+    }
+
+    [data-tooltip]:hover::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ── Loading Skeleton (used on photo) ── */
+    .skeleton {
+      background: linear-gradient(90deg, rgba(126, 200, 255, 0.05) 25%, rgba(126, 200, 255, 0.12) 50%, rgba(126, 200, 255, 0.05) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-shimmer 1.5s ease-in-out infinite;
+    }
+
+    @keyframes skeleton-shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
   </style>
 </head>
 <body>
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Particle Canvas -->
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+  <!-- Cursor Glow -->
   <div class="cursor-glow" aria-hidden="true"></div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Command Palette -->
+  <div class="command-palette-overlay" id="commandPalette">
+    <div class="command-palette">
+      <input class="command-palette-input" id="commandInput" type="text" placeholder="Type a command..." autocomplete="off" />
+      <div class="command-palette-results" id="commandResults"></div>
+      <div class="command-palette-hint">↑↓ Navigate · Enter Select · Esc Close</div>
+    </div>
+  </div>
+
+  <!-- Easter Egg Overlay -->
+  <div class="easter-egg-overlay" id="easterEgg">
+    <div class="easter-egg-content">
+      <h2>🎉 You found it!</h2>
+      <p>You entered the Konami Code. You're clearly a person of culture.</p>
+      <button class="easter-egg-close" id="easterEggClose">Nice, close this</button>
+    </div>
+  </div>
+
   <main>
     <header>
-      <nav>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+      <button class="theme-toggle magnetic" id="themeToggle" data-tooltip="Toggle ambient mode" aria-label="Toggle ambient mode">✦</button>
+      <nav id="mainNav">
         <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
         <a href="#experience">Experience</a>
         <a href="#contact">Contact</a>
       </nav>
     </header>
 
+    <!-- ═══ HERO ═══ -->
     <section class="hero interactive-target" id="top">
       <div class="hero-layout">
         <div class="hero-content">
           <div class="hero-pill">
+            <span class="pulse-dot"></span>
             <span>Available for internships</span>
           </div>
           <h1 class="hero-title">Lend Kalemasi</h1>
-          <h2 class="hero-subtitle">Software Engineer</h2>
+          <h2 class="hero-subtitle">
+            <span id="typedRole"></span><span class="typed-cursor"></span>
+          </h2>
           <p class="hero-subtitle">
-            I enjoy designing and implementing reliable systems, from low-level C programs to full‑stack web
-            projects.
+            I enjoy designing and implementing reliable systems, from low-level C programs to full‑stack web projects.
           </p>
           <div class="hero-meta">
             <span>📍 Bremen, DE</span>
             <span>🎓 BSc Computer Science</span>
             <span>✉️ <a href="mailto:lendkalemasi@gmail.com">lendkalemasi@gmail.com</a></span>
-            <span>🐙 <a href="https://github.com/LendKalemasi" target="_blank">GitHub</a></span>
-            <span>ℹ️ <a href="https://www.linkedin.com/in/lend-kalemasi-940168328/" target="_blank">LinkedIn</a></span>
+          </div>
+          <div class="social-links" style="margin-top: 18px;">
+            <a class="social-link magnetic" href="https://github.com/LendKalemasi" target="_blank" data-tooltip="GitHub Profile">
+              <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </a>
+            <a class="social-link magnetic" href="https://www.linkedin.com/in/lend-kalemasi-940168328/" target="_blank" data-tooltip="LinkedIn Profile">
+              <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+          <div class="stats-row interactive-target">
+            <div class="stat-item">
+              <div class="stat-number" data-count="3">0</div>
+              <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" data-count="2">0</div>
+              <div class="stat-label">Experiences</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" data-count="8">0</div>
+              <div class="stat-label">Technologies</div>
+            </div>
           </div>
         </div>
         <aside class="photo-panel" aria-label="Developer photo">
           <div class="photo-frame">
-            <img class="dev-photo" src="photoCV.JPG" alt="Lend Kalemasi portrait" />
+            <img class="dev-photo skeleton" src="photoCV.JPG" alt="Lend Kalemasi portrait" loading="lazy" />
           </div>
         </aside>
       </div>
     </section>
 
+    <!-- ═══ PROJECTS ═══ -->
     <section id="projects" class="interactive-target">
       <div class="section-header">
         <h2 class="section-title">Projects</h2>
-        <p class="section-caption">Three featured projects.</p>
+        <p class="section-caption">Featured work — hover for details.</p>
       </div>
-      <div class="grid">
+      <div class="grid stagger-children">
         <a class="card project-card" href="https://github.com/lostnfound-dev-web/Lost-Found" target="_blank" rel="noopener noreferrer" aria-label="Open Lost &amp; Found Web Database on GitHub">
           <div class="card-header">
             <h3 class="card-title">Lost &amp; Found Web Database</h3>
@@ -646,7 +1399,7 @@
           </div>
           <p class="project-subject">DBMS</p>
           <p class="card-description">
-            The project is a university lost and found system where students can report, search, and track items with details like description, photo, and location. Administrators verify reports and update statuses, ensuring accuracy. It provides one reliable place to reduce confusion and help students recover belongings easily.
+            A university lost and found system where students can report, search, and track items with details like description, photo, and location. Administrators verify reports and update statuses, ensuring accuracy.
           </p>
           <div class="card-meta">
             <div class="tags">
@@ -656,7 +1409,7 @@
               <span class="tag">JavaScript</span>
             </div>
             <div class="links">
-              <span>Open Project</span>
+              <span>Open Project <span class="link-arrow">→</span></span>
             </div>
           </div>
         </a>
@@ -668,7 +1421,7 @@
           </div>
           <p class="project-subject">Python</p>
           <p class="card-description">
-            CLI todo list app with category-based task organization. Supports full CRUD operations on tasks and categories. Built with OOP, dictionaries, file and error handling. Menu-driven with input validation.
+            CLI todo list app with category-based task organization. Supports full CRUD operations on tasks and categories. Built with OOP, dictionaries, file and error handling.
           </p>
           <div class="card-meta">
             <div class="tags">
@@ -679,7 +1432,7 @@
               <span class="tag">Pytest</span>
             </div>
             <div class="links">
-              <span>Open Project</span>
+              <span>Open Project <span class="link-arrow">→</span></span>
             </div>
           </div>
         </a>
@@ -702,41 +1455,90 @@
               <span class="tag">CRUD</span>
             </div>
             <div class="links">
-              <span>Open Project</span>
+              <span>Open Project <span class="link-arrow">→</span></span>
             </div>
           </div>
         </a>
       </div>
     </section>
 
+    <!-- ═══ SKILLS ═══ -->
+    <section id="skills" class="interactive-target">
+      <div class="section-header">
+        <h2 class="section-title">Skills</h2>
+        <p class="section-caption">Technical proficiency.</p>
+      </div>
+      <div class="skills-grid">
+        <div class="card" id="skillsCard1">
+          <div class="skill-category-title">Languages</div>
+          <div class="skill-bar-container">
+            <div class="skill-bar-label"><span>Python</span><span>85%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+          </div>
+          <div class="skill-bar-container">
+            <div class="skill-bar-label"><span>JavaScript</span><span>75%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="75"></div></div>
+          </div>
+          <div class="skill-bar-container">
+            <div class="skill-bar-label"><span>C</span><span>70%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="70"></div></div>
+          </div>
+          <div class="skill-bar-container">
+            <div class="skill-bar-label"><span>SQL</span><span>75%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="75"></div></div>
+          </div>
+        </div>
+        <div class="card" id="skillsCard2">
+          <div class="skill-category-title">Frameworks & Tools</div>
+          <div class="skill-bar-container">
+            <div class="skill-bar-label"><span>FastAPI</span><span>80%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div>
+          </div>
+          <div class="skill-bar-container">
+            <div class="skill-bar-label"><span>Git & GitHub</span><span>85%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+          </div>
+          <div class="skill-bar-container">
+            <div class="skill-bar-label"><span>HTML/CSS</span><span>80%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div>
+          </div>
+          <div class="skill-bar-container">
+            <div class="skill-bar-label"><span>Linux</span><span>70%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="70"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ EXPERIENCE ═══ -->
     <section id="experience" class="interactive-target">
       <div class="section-header">
         <h2 class="section-title">Experience</h2>
-        <p class="section-caption">Work experience.</p>
+        <p class="section-caption">Professional journey.</p>
       </div>
       <div class="card">
         <div class="timeline">
-          <div class="timeline-item">
+          <div class="timeline-item interactive-target">
             <div class="timeline-marker"></div>
             <div class="timeline-content">
               <div class="timeline-role">Website and App Bug Tester (testIO)</div>
               <div class="timeline-company">Berlin, Germany</div>
-              <div class="timeline-meta">Aug 2025 - Dec 2025</div>
+              <div class="timeline-meta">Aug 2025 – Dec 2025</div>
               <ul class="timeline-bullets">
                 <li>Tested and documented bugs in web and mobile applications prior to release.</li>
-                <li>Collaborated with developers to reproduce and resolve issues, ensuring smooth functionality.</li>
-                <li>Conducted usability testing to enhance the overall user experience.</li>
+                <li>Collaborated with developers to reproduce and resolve issues.</li>
+                <li>Conducted usability testing to enhance overall user experience.</li>
                 <li>Gained experience in QA processes and attention to technical detail.</li>
               </ul>
             </div>
           </div>
 
-          <div class="timeline-item">
+          <div class="timeline-item interactive-target">
             <div class="timeline-marker"></div>
             <div class="timeline-content">
               <div class="timeline-role">IT Intern ('Artan Ngjeci' Transport &amp; Logistics)</div>
               <div class="timeline-company">Durres, Albania</div>
-              <div class="timeline-meta">Jun 2025 - Aug 2025</div>
+              <div class="timeline-meta">Jun 2025 – Aug 2025</div>
               <ul class="timeline-bullets">
                 <li>Maintained and monitored the company server for daily operations.</li>
                 <li>Managed user accounts, access rights, and system settings.</li>
@@ -749,59 +1551,264 @@
       </div>
     </section>
 
+    <!-- ═══ CONTACT ═══ -->
     <section id="contact" class="interactive-target">
       <div class="section-header">
         <h2 class="section-title">Contact</h2>
-        <p class="section-caption">Let’s work on something together.</p>
+        <p class="section-caption">Let's work on something together.</p>
       </div>
-      <div class="card">
-        <p class="card-description">
-          If you’d like to talk about a project, internship, or collaboration, feel free to reach out.
-        </p>
-        <div class="card-meta">
-          <span>✉️ <a href="mailto:lendkalemasi@gmail.com">lendkalemasi@gmail.com</a></span>
-          <div class="links">
-            <a href="https://github.com/LendKalemasi" target="_blank">GitHub</a>
-            <a href="https://www.linkedin.com/in/lend-kalemasi-940168328/" target="_blank">LinkedIn</a>
+      <div class="contact-grid">
+        <div class="card contact-info-card">
+          <p class="card-description" style="margin-bottom: 16px;">
+            If you'd like to talk about a project, internship, or collaboration — feel free to reach out. I'm always open to new opportunities.
+          </p>
+          <div class="card-meta" style="flex-direction: column; align-items: flex-start; gap: 10px;">
+            <span>✉️ <a href="mailto:lendkalemasi@gmail.com">lendkalemasi@gmail.com</a></span>
+            <span>📍 Bremen, Germany</span>
           </div>
+          <div class="social-links" style="margin-top: 16px;">
+            <a class="social-link" href="https://github.com/LendKalemasi" target="_blank">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </a>
+            <a class="social-link" href="https://www.linkedin.com/in/lend-kalemasi-940168328/" target="_blank">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+        <div class="card">
+          <form class="contact-form" id="contactForm">
+            <div class="form-group">
+              <label for="contactName">Name</label>
+              <input type="text" id="contactName" name="name" placeholder="Your name" required />
+            </div>
+            <div class="form-group">
+              <label for="contactEmail">Email</label>
+              <input type="email" id="contactEmail" name="email" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+              <label for="contactMessage">Message</label>
+              <textarea id="contactMessage" name="message" rows="4" placeholder="Tell me about your project..." required></textarea>
+            </div>
+            <button type="submit" class="submit-btn magnetic">
+              <span class="btn-text">Send Message →</span>
+            </button>
+            <div class="form-success" id="formSuccess">
+              ✅ Message sent! I'll get back to you soon.
+            </div>
+          </form>
         </div>
       </div>
     </section>
 
     <footer>
-      <span>© <span id="year"></span> Lend Kalemasi</span>
+      <span>© <span id="year"></span> Lend Kalemasi · Built with care</span>
       <div class="footer-links">
-        <a href="#top">Back to top</a>
+        <a href="#top">Back to top ↑</a>
       </div>
     </footer>
   </main>
 
-  <button class="to-top" id="toTopBtn" type="button" aria-label="Back to top">↑</button>
+  <button class="to-top magnetic" id="toTopBtn" type="button" aria-label="Back to top">↑</button>
+
+  <div class="kbd-hint">
+    Press <kbd>Ctrl</kbd>+<kbd>K</kbd> for commands
+  </div>
 
   <script>
+    // ═══════════════════════════════════════════
+    // CORE SETUP
+    // ═══════════════════════════════════════════
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    const sections = Array.from(document.querySelectorAll("section[id]"));
-    const navLinks = Array.from(document.querySelectorAll('nav a[href^="#"]'));
-    const toTopBtn = document.getElementById("toTopBtn");
-    const glow = document.querySelector(".cursor-glow");
-    const revealTargets = Array.from(document.querySelectorAll(".interactive-target, .card, .timeline-item"));
+    const $ = (sel, ctx = document) => ctx.querySelector(sel);
+    const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) {
-          return;
+    const sections = $$("section[id]");
+    const navLinks = $$('nav a[href^="#"]');
+    const toTopBtn = $("#toTopBtn");
+    const glow = $(".cursor-glow");
+    const scrollProgress = $("#scrollProgress");
+
+    // ═══════════════════════════════════════════
+    // MOBILE MENU
+    // ═══════════════════════════════════════════
+    const menuToggle = $("#menuToggle");
+    const mainNav = $("#mainNav");
+
+    menuToggle.addEventListener("click", () => {
+      mainNav.classList.toggle("open");
+      menuToggle.textContent = mainNav.classList.contains("open") ? "✕" : "☰";
+    });
+
+    // Close nav on link click (mobile)
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        mainNav.classList.remove("open");
+        menuToggle.textContent = "☰";
+      });
+    });
+
+    // ═══════════════════════════════════════════
+    // PARTICLE SYSTEM
+    // ═══════════════════════════════════════════
+    const canvas = $("#particle-canvas");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    let mousePos = { x: -1000, y: -1000 };
+    let animFrame;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 0.3;
+        this.speedY = (Math.random() - 0.5) * 0.3;
+        this.opacity = Math.random() * 0.5 + 0.1;
+        this.baseOpacity = this.opacity;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        // Mouse interaction
+        const dx = this.x - mousePos.x;
+        const dy = this.y - mousePos.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 150) {
+          const force = (150 - dist) / 150;
+          this.x += (dx / dist) * force * 1.5;
+          this.y += (dy / dist) * force * 1.5;
+          this.opacity = Math.min(1, this.baseOpacity + force * 0.5);
+        } else {
+          this.opacity += (this.baseOpacity - this.opacity) * 0.05;
         }
 
+        if (this.x < -10 || this.x > canvas.width + 10 || this.y < -10 || this.y > canvas.height + 10) {
+          this.reset();
+        }
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(126, 200, 255, ${this.opacity})`;
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      const count = Math.min(80, Math.floor((canvas.width * canvas.height) / 15000));
+      particles = Array.from({ length: count }, () => new Particle());
+    }
+    initParticles();
+
+    function drawConnections() {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 120) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(126, 200, 255, ${0.06 * (1 - dist / 120)})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      drawConnections();
+      animFrame = requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // ═══════════════════════════════════════════
+    // TYPED EFFECT
+    // ═══════════════════════════════════════════
+    const roles = ["Software Engineer", "Backend Developer", "Problem Solver", "CS Student"];
+    let roleIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typedEl = $("#typedRole");
+
+    function typeEffect() {
+      const current = roles[roleIndex];
+      if (isDeleting) {
+        typedEl.textContent = current.substring(0, charIndex--);
+        if (charIndex < 0) {
+          isDeleting = false;
+          roleIndex = (roleIndex + 1) % roles.length;
+          setTimeout(typeEffect, 400);
+          return;
+        }
+        setTimeout(typeEffect, 40);
+      } else {
+        typedEl.textContent = current.substring(0, charIndex++);
+        if (charIndex > current.length) {
+          isDeleting = true;
+          setTimeout(typeEffect, 2000);
+          return;
+        }
+        setTimeout(typeEffect, 80);
+      }
+    }
+    setTimeout(typeEffect, 600);
+
+    // ═══════════════════════════════════════════
+    // SCROLL: PROGRESS BAR + NAV HIGHLIGHT + BACK TO TOP
+    // ═══════════════════════════════════════════
+    function onScroll() {
+      // Scroll progress
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      scrollProgress.style.width = progress + "%";
+
+      // Back to top
+      toTopBtn.classList.toggle("visible", scrollTop > 320);
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    // Active nav tracking
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
         const sectionId = entry.target.getAttribute("id");
         navLinks.forEach((link) => {
-          const isActive = link.getAttribute("href") === `#${sectionId}`;
-          link.classList.toggle("active", isActive);
+          link.classList.toggle("active", link.getAttribute("href") === `#${sectionId}`);
         });
       });
     }, { rootMargin: "-35% 0px -45% 0px", threshold: 0.15 });
 
-    sections.forEach((section) => sectionObserver.observe(section));
+    sections.forEach((s) => sectionObserver.observe(s));
+
+    toTopBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // ═══════════════════════════════════════════
+    // SCROLL REVEAL (Intersection Observer)
+    // ═══════════════════════════════════════════
+    const revealTargets = $$(".interactive-target, .card, .timeline-item, .stagger-children");
 
     const revealObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry) => {
@@ -812,44 +1819,363 @@
       });
     }, { threshold: 0.1 });
 
-    revealTargets.forEach((target) => {
-      target.classList.add("interactive-target");
-      revealObserver.observe(target);
+    revealTargets.forEach((t) => {
+      if (!t.classList.contains("visible")) {
+        revealObserver.observe(t);
+      }
     });
 
-    document.addEventListener("scroll", () => {
-      const show = window.scrollY > 320;
-      toTopBtn.classList.toggle("visible", show);
-    });
+    // ═══════════════════════════════════════════
+    // SKILL BAR ANIMATION
+    // ═══════════════════════════════════════════
+    const skillBars = $$(".skill-bar-fill");
+    const skillObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const bar = entry.target;
+          const width = bar.getAttribute("data-width");
+          bar.style.width = width + "%";
+          bar.classList.add("animated");
+          observer.unobserve(bar);
+        }
+      });
+    }, { threshold: 0.3 });
 
-    toTopBtn.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+    skillBars.forEach(bar => skillObserver.observe(bar));
 
-    document.querySelectorAll(".card").forEach((card) => {
-      card.addEventListener("mousemove", (event) => {
+    // ═══════════════════════════════════════════
+    // COUNTER ANIMATION
+    // ═══════════════════════════════════════════
+    const counters = $$(".stat-number[data-count]");
+    const counterObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.getAttribute("data-count"));
+          let current = 0;
+          const duration = 1500;
+          const step = Math.ceil(target / (duration / 30));
+          const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+              current = target;
+              clearInterval(timer);
+            }
+            el.textContent = current + "+";
+          }, 30);
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach(c => counterObserver.observe(c));
+
+    // ═══════════════════════════════════════════
+    // CARD TILT (3D hover effect)
+    // ═══════════════════════════════════════════
+    $$(".card").forEach((card) => {
+      card.addEventListener("mousemove", (e) => {
         const rect = card.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-        const rotateY = ((x / rect.width) - 0.5) * 5;
-        const rotateX = (((y / rect.height) - 0.5) * -5);
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const rotateY = ((x / rect.width) - 0.5) * 6;
+        const rotateX = (((y / rect.height) - 0.5) * -6);
 
         card.style.setProperty("--mx", `${(x / rect.width) * 100}%`);
         card.style.setProperty("--my", `${(y / rect.height) * 100}%`);
-        card.style.transform = `translateY(-4px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+        card.style.transform = `translateY(-4px) perspective(800px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
       });
 
       card.addEventListener("mouseleave", () => {
-        card.style.transform = "translateY(0) rotateX(0deg) rotateY(0deg)";
+        card.style.transform = "translateY(0) perspective(800px) rotateX(0deg) rotateY(0deg)";
       });
     });
 
-    window.addEventListener("mousemove", (event) => {
-      if (!glow) {
-        return;
+    // ═══════════════════════════════════════════
+    // CURSOR GLOW
+    // ═══════════════════════════════════════════
+    window.addEventListener("mousemove", (e) => {
+      mousePos.x = e.clientX;
+      mousePos.y = e.clientY;
+      if (glow) {
+        glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
       }
-      glow.style.transform = `translate(${event.clientX}px, ${event.clientY}px) translate(-50%, -50%)`;
     });
+
+    // ═══════════════════════════════════════════
+    // MAGNETIC BUTTONS
+    // ═══════════════════════════════════════════
+    $$(".magnetic").forEach(el => {
+      el.addEventListener("mousemove", (e) => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        el.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+      });
+      el.addEventListener("mouseleave", () => {
+        el.style.transform = "";
+      });
+    });
+
+    // ═══════════════════════════════════════════
+    // PHOTO SKELETON REMOVAL
+    // ═══════════════════════════════════════════
+    const devPhoto = $(".dev-photo");
+    if (devPhoto) {
+      devPhoto.addEventListener("load", () => {
+        devPhoto.classList.remove("skeleton");
+      });
+      if (devPhoto.complete) {
+        devPhoto.classList.remove("skeleton");
+      }
+    }
+
+    // ═══════════════════════════════════════════
+    // CONTACT FORM (with toast)
+    // ═══════════════════════════════════════════
+    function showToast(message, icon = "✅") {
+      const container = $("#toastContainer");
+      const toast = document.createElement("div");
+      toast.className = "toast";
+      toast.innerHTML = `<span>${icon}</span> ${message}`;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 3200);
+    }
+
+    $("#contactForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const btn = e.target.querySelector(".submit-btn");
+      const btnText = btn.querySelector(".btn-text");
+      const origText = btnText.textContent;
+
+      btnText.textContent = "Sending...";
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btnText.textContent = origText;
+        btn.disabled = false;
+        $("#formSuccess").classList.add("show");
+        showToast("Message sent successfully!", "✉️");
+        e.target.reset();
+
+        setTimeout(() => {
+          $("#formSuccess").classList.remove("show");
+        }, 4000);
+      }, 1200);
+    });
+
+    // ═══════════════════════════════════════════
+    // COMMAND PALETTE (Ctrl+K)
+    // ═══════════════════════════════════════════
+    const commandPalette = $("#commandPalette");
+    const commandInput = $("#commandInput");
+    const commandResults = $("#commandResults");
+
+    const commands = [
+      { icon: "🏠", label: "Go to Top", action: () => { window.scrollTo({ top: 0, behavior: "smooth" }); } },
+      { icon: "💼", label: "View Projects", action: () => { document.querySelector("#projects").scrollIntoView({ behavior: "smooth" }); } },
+      { icon: "⚡", label: "View Skills", action: () => { document.querySelector("#skills").scrollIntoView({ behavior: "smooth" }); } },
+      { icon: "📋", label: "View Experience", action: () => { document.querySelector("#experience").scrollIntoView({ behavior: "smooth" }); } },
+      { icon: "✉️", label: "Contact", action: () => { document.querySelector("#contact").scrollIntoView({ behavior: "smooth" }); } },
+      { icon: "🐙", label: "Open GitHub", action: () => { window.open("https://github.com/LendKalemasi", "_blank"); } },
+      { icon: "ℹ️", label: "Open LinkedIn", action: () => { window.open("https://www.linkedin.com/in/lend-kalemasi-940168328/", "_blank"); } },
+      { icon: "📧", label: "Send Email", action: () => { window.location.href = "mailto:lendkalemasi@gmail.com"; } },
+      { icon: "✦", label: "Toggle Ambient Mode", action: () => { toggleAmbient(); } },
+    ];
+
+    let selectedCommandIndex = 0;
+
+    function openCommandPalette() {
+      commandPalette.classList.add("show");
+      commandInput.value = "";
+      commandInput.focus();
+      renderCommands(commands);
+      selectedCommandIndex = 0;
+      updateCommandSelection();
+    }
+
+    function closeCommandPalette() {
+      commandPalette.classList.remove("show");
+    }
+
+    function renderCommands(list) {
+      commandResults.innerHTML = list.map((cmd, i) =>
+        `<div class="command-item" data-index="${i}">
+          <span class="command-item-icon">${cmd.icon}</span>
+          <span class="command-item-label">${cmd.label}</span>
+        </div>`
+      ).join("");
+
+      $$(".command-item", commandResults).forEach((item, i) => {
+        item.addEventListener("click", () => {
+          list[i].action();
+          closeCommandPalette();
+        });
+        item.addEventListener("mouseenter", () => {
+          selectedCommandIndex = i;
+          updateCommandSelection();
+        });
+      });
+    }
+
+    function updateCommandSelection() {
+      $$(".command-item", commandResults).forEach((item, i) => {
+        item.classList.toggle("selected", i === selectedCommandIndex);
+      });
+    }
+
+    commandInput.addEventListener("input", () => {
+      const query = commandInput.value.toLowerCase();
+      const filtered = commands.filter(c => c.label.toLowerCase().includes(query));
+      renderCommands(filtered);
+      selectedCommandIndex = 0;
+      updateCommandSelection();
+    });
+
+    commandInput.addEventListener("keydown", (e) => {
+      const items = $$(".command-item", commandResults);
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        selectedCommandIndex = (selectedCommandIndex + 1) % items.length;
+        updateCommandSelection();
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        selectedCommandIndex = (selectedCommandIndex - 1 + items.length) % items.length;
+        updateCommandSelection();
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        if (items[selectedCommandIndex]) items[selectedCommandIndex].click();
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+        e.preventDefault();
+        if (commandPalette.classList.contains("show")) {
+          closeCommandPalette();
+        } else {
+          openCommandPalette();
+        }
+      }
+      if (e.key === "Escape") {
+        closeCommandPalette();
+        $("#easterEgg").classList.remove("show");
+      }
+    });
+
+    commandPalette.addEventListener("click", (e) => {
+      if (e.target === commandPalette) closeCommandPalette();
+    });
+
+    // ═══════════════════════════════════════════
+    // AMBIENT MODE TOGGLE
+    // ═══════════════════════════════════════════
+    let ambientMode = false;
+
+    function toggleAmbient() {
+      ambientMode = !ambientMode;
+      document.body.style.transition = "filter 0.5s ease";
+      if (ambientMode) {
+        document.body.style.filter = "saturate(1.4) brightness(0.95)";
+        canvas.style.opacity = "1";
+        showToast("Ambient mode ON", "✦");
+      } else {
+        document.body.style.filter = "";
+        canvas.style.opacity = "";
+        showToast("Ambient mode OFF", "✦");
+      }
+    }
+
+    $("#themeToggle").addEventListener("click", toggleAmbient);
+
+    // ═══════════════════════════════════════════
+    // KONAMI CODE EASTER EGG
+    // ═══════════════════════════════════════════
+    const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+    let konamiIndex = 0;
+
+    document.addEventListener("keydown", (e) => {
+      if (e.keyCode === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        if (konamiIndex === konamiCode.length) {
+          $("#easterEgg").classList.add("show");
+          konamiIndex = 0;
+          // Confetti burst
+          launchConfetti();
+        }
+      } else {
+        konamiIndex = 0;
+      }
+    });
+
+    $("#easterEggClose").addEventListener("click", () => {
+      $("#easterEgg").classList.remove("show");
+    });
+
+    // ═══════════════════════════════════════════
+    // CONFETTI (lightweight)
+    // ═══════════════════════════════════════════
+    function launchConfetti() {
+      const colors = ["#7ec8ff", "#a78bfa", "#f472b6", "#4ade80", "#fbbf24"];
+      for (let i = 0; i < 60; i++) {
+        const confetti = document.createElement("div");
+        confetti.style.cssText = `
+          position: fixed;
+          width: ${Math.random() * 8 + 4}px;
+          height: ${Math.random() * 8 + 4}px;
+          background: ${colors[Math.floor(Math.random() * colors.length)]};
+          left: ${Math.random() * 100}vw;
+          top: -10px;
+          border-radius: ${Math.random() > 0.5 ? "50%" : "2px"};
+          z-index: 300;
+          pointer-events: none;
+          animation: confetti-fall ${Math.random() * 2 + 1.5}s ease-out forwards;
+          opacity: ${Math.random() * 0.5 + 0.5};
+        `;
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 4000);
+      }
+    }
+
+    // Add confetti keyframes dynamically
+    const confettiStyle = document.createElement("style");
+    confettiStyle.textContent = `
+      @keyframes confetti-fall {
+        0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+        100% { transform: translateY(100vh) rotate(${Math.random() * 720}deg) scale(0.3); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(confettiStyle);
+
+    // ═══════════════════════════════════════════
+    // SMOOTH LINK SCROLLING (accessibility)
+    // ═══════════════════════════════════════════
+    $$('a[href^="#"]').forEach(link => {
+      link.addEventListener("click", (e) => {
+        const href = link.getAttribute("href");
+        if (href && href !== "#") {
+          const target = $(href);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: "smooth" });
+          }
+        }
+      });
+    });
+
+    // ═══════════════════════════════════════════
+    // PAGE VISIBILITY — pause particles when hidden
+    // ═══════════════════════════════════════════
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animFrame);
+      } else {
+        animateParticles();
+      }
+    });
+
+    // Initial scroll state
+    onScroll();
   </script>
 </body>
 </html>
