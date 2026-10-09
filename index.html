@@ -7,1192 +7,81 @@
     name="description"
     content="Portfolio of Lend Kalemasi, a Computer Science student building reliable software and web applications."
   />
-  <meta name="theme-color" content="#f5f3ee" />
+  <meta name="theme-color" content="#f2efe8" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Lend Kalemasi — Computer Science Student" />
+  <meta
+    property="og:description"
+    content="Computer Science student in Bremen, building reliable software and useful web experiences."
+  />
   <title>Lend Kalemasi — Computer Science Student</title>
   <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="apple-touch-icon" href="assets/img/logo-180.png" />
+
+  <!-- Enables motion pre-states only when the visitor has not asked for reduced motion.
+       If the animation script never boots, the class is removed so content is always visible. -->
+  <script>
+    (function () {
+      var root = document.documentElement;
+      if (!window.matchMedia || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      root.classList.add("has-motion");
+      setTimeout(function () {
+        if (!window.__motionReady) root.classList.remove("has-motion");
+      }, 2500);
+    })();
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wdth,wght@0,75..100,400..700;1,75..100,400..700&family=JetBrains+Mono:wght@400;500&display=swap"
     rel="stylesheet"
   />
-  <style>
-    :root {
-      --canvas: #f5f3ee;
-      --surface: #fcfbf8;
-      --surface-muted: #ece9e1;
-      --ink: #17211f;
-      --ink-soft: #36423e;
-      --muted: #67736e;
-      --line: #d9d8d0;
-      --line-strong: #bfc2b8;
-      --accent: #087366;
-      --accent-dark: #075f55;
-      --accent-pale: #e0efea;
-      --warm: #c7773a;
-      --radius-sm: 0.75rem;
-      --radius: 1.25rem;
-      --radius-lg: 1.75rem;
-      --shadow: 0 18px 45px rgba(26, 35, 32, 0.08);
-      --content-width: 72rem;
-      --page-padding: clamp(1.25rem, 4vw, 3.25rem);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 5.75rem;
-    }
-
-    body {
-      min-width: 20rem;
-      margin: 0;
-      color: var(--ink);
-      background-color: var(--canvas);
-      background-image:
-        linear-gradient(rgba(23, 33, 31, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(23, 33, 31, 0.035) 1px, transparent 1px);
-      background-size: 2rem 2rem;
-      font-family: "Manrope", "Segoe UI", Arial, sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      position: fixed;
-      z-index: -1;
-      top: 0;
-      right: 0;
-      width: min(46vw, 40rem);
-      height: 24rem;
-      content: "";
-      background: linear-gradient(135deg, rgba(224, 239, 234, 0.76), rgba(224, 239, 234, 0));
-      pointer-events: none;
-    }
-
-    ::selection {
-      color: #fff;
-      background: var(--accent);
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button,
-    input,
-    textarea {
-      font: inherit;
-    }
-
-    button {
-      color: inherit;
-    }
-
-    img {
-      display: block;
-      height: auto;
-      max-width: 100%;
-    }
-
-    .skip-link {
-      position: fixed;
-      z-index: 100;
-      top: 0.75rem;
-      left: 0.75rem;
-      padding: 0.7rem 0.9rem;
-      color: #fff;
-      background: var(--accent-dark);
-      border-radius: 0.5rem;
-      transform: translateY(-200%);
-      transition: transform 160ms ease;
-    }
-
-    .skip-link:focus {
-      transform: translateY(0);
-    }
-
-    .shell {
-      width: min(100%, calc(var(--content-width) + (var(--page-padding) * 2)));
-      margin: 0 auto;
-      padding-right: var(--page-padding);
-      padding-left: var(--page-padding);
-    }
-
-    .site-header {
-      position: sticky;
-      z-index: 20;
-      top: 0;
-      border-bottom: 1px solid rgba(217, 216, 208, 0.8);
-      background: rgba(245, 243, 238, 0.88);
-      backdrop-filter: blur(12px);
-    }
-
-    .header-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 4.75rem;
-      gap: 1rem;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      flex-shrink: 0;
-      gap: 0.65rem;
-      font-size: 0.82rem;
-      font-weight: 800;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-    }
-
-    .brand-mark {
-      display: grid;
-      width: 2rem;
-      height: 2rem;
-      place-items: center;
-      color: var(--surface);
-      background: var(--ink);
-      border-radius: 0.55rem;
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.73rem;
-      letter-spacing: -0.08em;
-    }
-
-    .site-nav {
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-
-    .site-nav a {
-      position: relative;
-      padding: 0.5rem 0.68rem;
-      border-radius: 0.5rem;
-      color: var(--muted);
-      font-size: 0.82rem;
-      font-weight: 700;
-      transition: color 150ms ease, background-color 150ms ease;
-    }
-
-    .site-nav a::after {
-      position: absolute;
-      right: 0.68rem;
-      bottom: 0.2rem;
-      left: 0.68rem;
-      height: 2px;
-      content: "";
-      background: var(--accent);
-      border-radius: 99px;
-      opacity: 0;
-      transform: scaleX(0.25);
-      transition: opacity 150ms ease, transform 150ms ease;
-    }
-
-    .site-nav a:hover,
-    .site-nav a[aria-current="page"] {
-      color: var(--ink);
-      background: rgba(224, 239, 234, 0.7);
-    }
-
-    .site-nav a[aria-current="page"]::after {
-      opacity: 1;
-      transform: scaleX(1);
-    }
-
-    .nav-toggle {
-      display: none;
-      width: 2.5rem;
-      height: 2.5rem;
-      padding: 0;
-      color: var(--ink);
-      background: transparent;
-      border: 1px solid var(--line-strong);
-      border-radius: 0.55rem;
-      cursor: pointer;
-    }
-
-    .nav-toggle:hover {
-      background: var(--surface-muted);
-    }
-
-    .nav-toggle-lines,
-    .nav-toggle-lines::before,
-    .nav-toggle-lines::after {
-      display: block;
-      width: 1rem;
-      height: 1.5px;
-      margin: auto;
-      content: "";
-      background: currentColor;
-      border-radius: 2px;
-      transition: transform 180ms ease, opacity 180ms ease;
-    }
-
-    .nav-toggle-lines {
-      position: relative;
-    }
-
-    .nav-toggle-lines::before,
-    .nav-toggle-lines::after {
-      position: absolute;
-      left: 0;
-    }
-
-    .nav-toggle-lines::before {
-      top: -0.33rem;
-    }
-
-    .nav-toggle-lines::after {
-      top: 0.33rem;
-    }
-
-    .nav-toggle[aria-expanded="true"] .nav-toggle-lines {
-      background: transparent;
-    }
-
-    .nav-toggle[aria-expanded="true"] .nav-toggle-lines::before {
-      transform: translateY(0.33rem) rotate(45deg);
-    }
-
-    .nav-toggle[aria-expanded="true"] .nav-toggle-lines::after {
-      transform: translateY(-0.33rem) rotate(-45deg);
-    }
-
-    main {
-      padding-bottom: 4rem;
-    }
-
-    section {
-      scroll-margin-top: 5.75rem;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.18fr) minmax(16rem, 0.82fr);
-      align-items: end;
-      min-height: min(47rem, calc(100vh - 4.75rem));
-      gap: clamp(2.5rem, 7vw, 7rem);
-      padding-top: clamp(4rem, 10vh, 7.5rem);
-      padding-bottom: clamp(4.5rem, 10vh, 7rem);
-    }
-
-    .eyebrow,
-    .section-kicker,
-    .item-kicker {
-      display: flex;
-      align-items: center;
-      gap: 0.55rem;
-      margin: 0;
-      color: var(--accent-dark);
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      line-height: 1.4;
-      text-transform: uppercase;
-    }
-
-    .eyebrow::before,
-    .section-kicker::before {
-      width: 1.5rem;
-      height: 1px;
-      content: "";
-      background: currentColor;
-    }
-
-    .hero h1 {
-      max-width: 9ch;
-      margin: 1.2rem 0 1.15rem;
-      font-size: clamp(3.25rem, 8.1vw, 6.55rem);
-      font-weight: 800;
-      letter-spacing: -0.075em;
-      line-height: 0.9;
-    }
-
-    .hero-role {
-      max-width: 42rem;
-      margin: 0;
-      color: var(--ink-soft);
-      font-size: clamp(1.08rem, 2vw, 1.4rem);
-      font-weight: 700;
-      line-height: 1.35;
-    }
-
-    .hero-intro {
-      max-width: 38rem;
-      margin: 1rem 0 0;
-      color: var(--muted);
-      font-size: 1rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-top: 2rem;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 2.85rem;
-      gap: 0.5rem;
-      padding: 0.7rem 1rem;
-      border: 1px solid transparent;
-      border-radius: 0.65rem;
-      font-size: 0.86rem;
-      font-weight: 800;
-      line-height: 1.2;
-      transition: transform 170ms ease, box-shadow 170ms ease, background-color 170ms ease, border-color 170ms ease;
-    }
-
-    .button:hover {
-      transform: translateY(-2px);
-    }
-
-    .button-primary {
-      color: #fff;
-      background: var(--accent-dark);
-      box-shadow: 0 7px 0 rgba(7, 95, 85, 0.18);
-    }
-
-    .button-primary:hover {
-      background: var(--accent);
-      box-shadow: 0 9px 0 rgba(7, 95, 85, 0.17);
-    }
-
-    .button-secondary {
-      color: var(--ink);
-      background: rgba(252, 251, 248, 0.6);
-      border-color: var(--line-strong);
-    }
-
-    .button-secondary:hover {
-      border-color: var(--accent);
-      background: var(--surface);
-    }
-
-    .inline-links {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.9rem 1.2rem;
-      margin-top: 1.35rem;
-    }
-
-    .inline-links a {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      color: var(--ink-soft);
-      border-bottom: 1px solid var(--line-strong);
-      font-size: 0.84rem;
-      font-weight: 700;
-      transition: color 150ms ease, border-color 150ms ease;
-    }
-
-    .inline-links a:hover {
-      color: var(--accent-dark);
-      border-color: var(--accent);
-    }
-
-    .arrow {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.95em;
-    }
-
-    .hero-side {
-      display: grid;
-      justify-items: end;
-      gap: 1.25rem;
-    }
-
-    .portrait-wrap {
-      position: relative;
-      width: min(100%, 23.5rem);
-    }
-
-    .portrait-wrap::before {
-      position: absolute;
-      z-index: -1;
-      top: -1rem;
-      right: -1rem;
-      width: 100%;
-      height: 100%;
-      content: "";
-      border: 1px solid var(--line-strong);
-      border-radius: var(--radius-lg);
-    }
-
-    .portrait {
-      width: 100%;
-      aspect-ratio: 0.86;
-      object-fit: cover;
-      object-position: center 43%;
-      border: 1px solid var(--line-strong);
-      border-radius: var(--radius-lg);
-      filter: saturate(0.9) contrast(1.02);
-    }
-
-    .availability-card {
-      width: min(100%, 22rem);
-      padding: 1rem 1.05rem;
-      color: var(--ink);
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-
-    .availability-card p {
-      margin: 0;
-    }
-
-    .availability-label {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--muted);
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.67rem;
-      letter-spacing: 0.045em;
-      text-transform: uppercase;
-    }
-
-    .availability-label::before {
-      width: 0.5rem;
-      height: 0.5rem;
-      content: "";
-      background: var(--accent);
-      border-radius: 50%;
-      box-shadow: 0 0 0 4px var(--accent-pale);
-    }
-
-    .availability-copy {
-      margin-top: 0.45rem !important;
-      font-size: 0.92rem;
-      font-weight: 700;
-      line-height: 1.45;
-    }
-
-    .hero-note {
-      max-width: 30rem;
-      margin: 2.3rem 0 0;
-      color: var(--muted);
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.71rem;
-      line-height: 1.7;
-    }
-
-    .hero-note span {
-      color: var(--warm);
-    }
-
-    .section {
-      padding: clamp(4.8rem, 10vw, 8rem) 0;
-      border-top: 1px solid var(--line);
-    }
-
-    .section-header {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(15rem, 23rem);
-      align-items: end;
-      gap: 2rem;
-      margin-bottom: clamp(2rem, 5vw, 3.65rem);
-    }
-
-    .section-heading {
-      max-width: 12ch;
-      margin: 0.55rem 0 0;
-      font-size: clamp(2.15rem, 4.7vw, 4rem);
-      font-weight: 800;
-      letter-spacing: -0.06em;
-      line-height: 0.98;
-    }
-
-    .section-lede {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.96rem;
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
-      gap: clamp(2rem, 6vw, 6rem);
-      align-items: start;
-    }
-
-    .about-copy {
-      max-width: 46rem;
-      margin: 0;
-      color: var(--ink-soft);
-      font-size: clamp(1.12rem, 2.1vw, 1.48rem);
-      font-weight: 500;
-      letter-spacing: -0.025em;
-      line-height: 1.58;
-    }
-
-    .about-copy strong {
-      color: var(--ink);
-      font-weight: 800;
-    }
-
-    .focus-list {
-      display: grid;
-      gap: 0;
-      padding: 0;
-      margin: 0;
-      list-style: none;
-      border-top: 1px solid var(--line-strong);
-    }
-
-    .focus-list li {
-      display: grid;
-      grid-template-columns: 2.5rem 1fr;
-      gap: 0.75rem;
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--line-strong);
-    }
-
-    .focus-index {
-      color: var(--accent-dark);
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.71rem;
-      padding-top: 0.2rem;
-    }
-
-    .focus-list h3 {
-      margin: 0;
-      font-size: 0.96rem;
-      line-height: 1.4;
-    }
-
-    .focus-list p {
-      margin: 0.22rem 0 0;
-      color: var(--muted);
-      font-size: 0.84rem;
-      line-height: 1.55;
-    }
-
-    .projects {
-      display: grid;
-      gap: 1rem;
-    }
-
-    .project {
-      position: relative;
-      display: grid;
-      grid-template-columns: minmax(8rem, 0.42fr) minmax(0, 1.18fr) minmax(12rem, 0.52fr);
-      gap: 1.7rem;
-      padding: clamp(1.3rem, 3vw, 2rem);
-      overflow: hidden;
-      background: rgba(252, 251, 248, 0.76);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
-    }
-
-    .project::before {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      width: 4px;
-      content: "";
-      background: var(--accent);
-      opacity: 0;
-      transition: opacity 180ms ease;
-    }
-
-    .project:hover,
-    .project:focus-within {
-      border-color: #a9c4bb;
-      box-shadow: var(--shadow);
-      transform: translateY(-3px);
-    }
-
-    .project:hover::before,
-    .project:focus-within::before {
-      opacity: 1;
-    }
-
-    .project-index {
-      display: grid;
-      align-content: space-between;
-      min-height: 100%;
-      color: var(--muted);
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.04em;
-    }
-
-    .project-index strong {
-      display: block;
-      color: var(--accent-dark);
-      font-size: 1.15rem;
-      font-weight: 500;
-    }
-
-    .project-main h3 {
-      margin: 0;
-      font-size: clamp(1.3rem, 2.4vw, 1.8rem);
-      font-weight: 800;
-      letter-spacing: -0.045em;
-      line-height: 1.1;
-    }
-
-    .project-summary {
-      max-width: 45rem;
-      margin: 0.7rem 0 0;
-      color: var(--ink-soft);
-      font-size: 0.93rem;
-    }
-
-    .project details {
-      margin-top: 1rem;
-    }
-
-    .project summary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      color: var(--accent-dark);
-      cursor: pointer;
-      font-size: 0.79rem;
-      font-weight: 800;
-      list-style: none;
-    }
-
-    .project summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .project summary::after {
-      content: "+";
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 1rem;
-      transition: transform 160ms ease;
-    }
-
-    .project details[open] summary::after {
-      transform: rotate(45deg);
-    }
-
-    .project-notes {
-      display: grid;
-      gap: 0.42rem;
-      padding: 0.8rem 0 0 1rem;
-      margin: 0.6rem 0 0;
-      color: var(--muted);
-      border-left: 2px solid var(--accent-pale);
-      font-size: 0.83rem;
-      line-height: 1.55;
-    }
-
-    .project-notes strong {
-      color: var(--ink-soft);
-    }
-
-    .project-aside {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 1.25rem;
-    }
-
-    .tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.42rem;
-      padding: 0;
-      margin: 0;
-      list-style: none;
-    }
-
-    .tag {
-      padding: 0.31rem 0.5rem;
-      color: var(--ink-soft);
-      background: var(--surface-muted);
-      border: 1px solid transparent;
-      border-radius: 0.38rem;
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.68rem;
-      line-height: 1.2;
-      transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease;
-    }
-
-    .tag:hover {
-      color: var(--accent-dark);
-      background: var(--accent-pale);
-      border-color: #b6d5ca;
-    }
-
-    .project-link,
-    .text-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      color: var(--ink);
-      border-bottom: 1px solid var(--ink);
-      font-size: 0.82rem;
-      font-weight: 800;
-      transition: color 150ms ease, border-color 150ms ease;
-    }
-
-    .project-link:hover,
-    .text-link:hover {
-      color: var(--accent-dark);
-      border-color: var(--accent);
-    }
-
-    .skill-groups {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 1rem;
-    }
-
-    .skill-group {
-      min-height: 13rem;
-      padding: 1.25rem;
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
-    }
-
-    .skill-group:hover {
-      border-color: #a9c4bb;
-      box-shadow: 0 12px 30px rgba(26, 35, 32, 0.06);
-      transform: translateY(-3px);
-    }
-
-    .skill-group h3 {
-      margin: 0;
-      color: var(--accent-dark);
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .skill-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.48rem;
-      padding: 0;
-      margin: 1rem 0 0;
-      list-style: none;
-    }
-
-    .skill-list li {
-      width: 100%;
-      padding: 0.42rem 0;
-      color: var(--ink-soft);
-      border-bottom: 1px solid var(--line);
-      font-size: 0.86rem;
-      font-weight: 700;
-    }
-
-    .experience-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.36fr);
-      gap: clamp(2rem, 6vw, 6rem);
-      align-items: start;
-    }
-
-    .timeline {
-      padding: 0;
-      margin: 0;
-      list-style: none;
-      border-top: 1px solid var(--line-strong);
-    }
-
-    .timeline-item {
-      display: grid;
-      grid-template-columns: 7rem 1fr;
-      gap: 1.25rem;
-      padding: 1.3rem 0 1.55rem;
-      border-bottom: 1px solid var(--line-strong);
-    }
-
-    .timeline-date {
-      color: var(--accent-dark);
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.7rem;
-      line-height: 1.55;
-    }
-
-    .timeline-item h3 {
-      margin: 0;
-      font-size: 1.04rem;
-      letter-spacing: -0.025em;
-      line-height: 1.4;
-    }
-
-    .timeline-meta {
-      margin: 0.18rem 0 0;
-      color: var(--muted);
-      font-size: 0.82rem;
-    }
-
-    .timeline-points {
-      display: grid;
-      gap: 0.36rem;
-      padding: 0;
-      margin: 0.72rem 0 0;
-      color: var(--ink-soft);
-      font-size: 0.85rem;
-      list-style: none;
-    }
-
-    .timeline-points li {
-      position: relative;
-      padding-left: 1rem;
-    }
-
-    .timeline-points li::before {
-      position: absolute;
-      top: 0.7em;
-      left: 0;
-      width: 0.28rem;
-      height: 0.28rem;
-      content: "";
-      background: var(--accent);
-      border-radius: 50%;
-    }
-
-    .education-card {
-      padding: 1.35rem;
-      background: var(--accent-pale);
-      border: 1px solid #c2ddd3;
-      border-radius: var(--radius);
-    }
-
-    .education-card h3 {
-      margin: 0.55rem 0 0;
-      font-size: 1.22rem;
-      letter-spacing: -0.04em;
-      line-height: 1.25;
-    }
-
-    .education-card p:last-child {
-      margin: 0.7rem 0 0;
-      color: var(--ink-soft);
-      font-size: 0.86rem;
-      line-height: 1.55;
-    }
-
-    .contact-panel {
-      display: grid;
-      grid-template-columns: minmax(0, 1.12fr) minmax(14rem, 0.48fr);
-      gap: 2rem;
-      padding: clamp(1.6rem, 5vw, 3.35rem);
-      color: #f7f9f6;
-      background: var(--ink);
-      border-radius: var(--radius-lg);
-    }
-
-    .contact-panel .section-kicker {
-      color: #a8d4c7;
-    }
-
-    .contact-panel h2 {
-      max-width: 11ch;
-      margin: 0.65rem 0 0;
-      font-size: clamp(2rem, 4.4vw, 3.75rem);
-      letter-spacing: -0.065em;
-      line-height: 0.98;
-    }
-
-    .contact-panel p {
-      max-width: 38rem;
-      margin: 1rem 0 0;
-      color: #c5cfca;
-      font-size: 0.96rem;
-    }
-
-    .contact-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.7rem;
-      margin-top: 1.65rem;
-    }
-
-    .contact-panel .button-primary {
-      color: var(--ink);
-      background: #d7ede6;
-      box-shadow: 0 7px 0 rgba(215, 237, 230, 0.18);
-    }
-
-    .contact-panel .button-primary:hover {
-      background: #fff;
-    }
-
-    .contact-links {
-      display: grid;
-      align-content: end;
-      gap: 0.8rem;
-    }
-
-    .contact-links a {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-      padding-bottom: 0.7rem;
-      color: #f7f9f6;
-      border-bottom: 1px solid rgba(247, 249, 246, 0.28);
-      font-size: 0.87rem;
-      font-weight: 700;
-      transition: color 150ms ease, border-color 150ms ease;
-    }
-
-    .contact-links a:hover {
-      color: #a8d4c7;
-      border-color: #a8d4c7;
-    }
-
-    footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 1.65rem 0 0;
-      color: var(--muted);
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.7rem;
-    }
-
-    footer a {
-      color: var(--ink-soft);
-      border-bottom: 1px solid var(--line-strong);
-    }
-
-    :focus-visible {
-      outline: 3px solid rgba(8, 115, 102, 0.45);
-      outline-offset: 3px;
-    }
-
-    [data-reveal] {
-      opacity: 1;
-      transform: none;
-    }
-
-    [data-reveal].is-ready {
-      opacity: 0;
-      transform: translateY(1rem);
-      transition: opacity 500ms ease, transform 500ms ease;
-    }
-
-    [data-reveal].is-ready.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (max-width: 60rem) {
-      .hero {
-        grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.65fr);
-        gap: 3rem;
-      }
-
-      .project {
-        grid-template-columns: 6.5rem minmax(0, 1fr);
-      }
-
-      .project-aside {
-        grid-column: 2;
-        flex-direction: row;
-        align-items: flex-end;
-      }
-
-      .skill-groups {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 44rem) {
-      body {
-        background-size: 1.5rem 1.5rem;
-      }
-
-      .header-inner {
-        min-height: 4.25rem;
-      }
-
-      .nav-toggle {
-        display: inline-grid;
-        place-items: center;
-      }
-
-      .site-nav {
-        position: absolute;
-        top: calc(100% + 0.55rem);
-        right: var(--page-padding);
-        left: var(--page-padding);
-        display: grid;
-        gap: 0.2rem;
-        padding: 0.6rem;
-        visibility: hidden;
-        background: var(--surface);
-        border: 1px solid var(--line);
-        border-radius: var(--radius-sm);
-        box-shadow: var(--shadow);
-        opacity: 0;
-        transform: translateY(-0.45rem);
-        transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease;
-      }
-
-      .site-nav[data-open="true"] {
-        visibility: visible;
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .site-nav a {
-        padding: 0.7rem 0.8rem;
-      }
-
-      .site-nav a::after {
-        right: auto;
-        bottom: 0.38rem;
-        left: 0.8rem;
-        width: 1.4rem;
-      }
-
-      .hero {
-        grid-template-columns: 1fr;
-        min-height: auto;
-        gap: 3rem;
-        padding-top: 4.5rem;
-      }
-
-      .hero-side {
-        justify-items: start;
-        width: min(100%, 26rem);
-      }
-
-      .portrait-wrap {
-        width: min(100%, 20rem);
-      }
-
-      .portrait-wrap::before {
-        top: 0.75rem;
-        right: -0.75rem;
-      }
-
-      .section-header,
-      .about-grid,
-      .experience-layout,
-      .contact-panel {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-
-      .section-heading {
-        max-width: 16ch;
-      }
-
-      .project {
-        grid-template-columns: 1fr;
-        gap: 1.1rem;
-      }
-
-      .project-index {
-        display: flex;
-        align-items: baseline;
-        min-height: 0;
-        gap: 0.6rem;
-      }
-
-      .project-index strong {
-        display: inline;
-      }
-
-      .project-aside {
-        grid-column: auto;
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .timeline-item {
-        grid-template-columns: 1fr;
-        gap: 0.35rem;
-      }
-
-      .contact-links {
-        align-content: start;
-      }
-    }
-
-    @media (max-width: 30rem) {
-      .brand-name {
-        display: none;
-      }
-
-      .hero h1 {
-        font-size: clamp(3rem, 17vw, 4.35rem);
-      }
-
-      .skill-groups {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-actions,
-      .contact-actions {
-        display: grid;
-      }
-
-      .button {
-        width: 100%;
-      }
-
-      footer {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
-      }
-
-      [data-reveal].is-ready {
-        opacity: 1;
-        transform: none;
-      }
-    }
-  </style>
+  <link
+    rel="preload"
+    as="image"
+    type="image/webp"
+    imagesrcset="assets/img/portrait-560.webp 560w, assets/img/portrait-880.webp 880w, assets/img/portrait-1200.webp 1200w"
+    imagesizes="(max-width: 47.99rem) 72vw, 30vw"
+  />
+  <link rel="stylesheet" href="assets/css/main.css" />
+
+  <script src="assets/vendor/gsap.min.js" defer></script>
+  <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="assets/vendor/SplitText.min.js" defer></script>
+  <script src="assets/vendor/lenis.min.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
-  <header class="site-header">
+  <header class="site-header" id="siteHeader">
     <div class="shell header-inner">
       <a class="brand" href="#home" aria-label="Lend Kalemasi — home">
-        <span class="brand-mark" aria-hidden="true">LK.</span>
+        <img class="brand-mark" src="assets/img/logo-64.png" width="32" height="32" alt="" />
         <span class="brand-name">Lend Kalemasi</span>
       </a>
+
+      <nav class="site-nav" id="siteNav" aria-label="Primary navigation" data-lenis-prevent>
+        <ul class="site-nav-list">
+          <li><a href="#about"><span class="nav-index" aria-hidden="true">01</span>About</a></li>
+          <li><a href="#projects"><span class="nav-index" aria-hidden="true">02</span>Projects</a></li>
+          <li><a href="#skills"><span class="nav-index" aria-hidden="true">03</span>Skills</a></li>
+          <li><a href="#experience"><span class="nav-index" aria-hidden="true">04</span>Experience</a></li>
+          <li><a href="#contact"><span class="nav-index" aria-hidden="true">05</span>Contact</a></li>
+        </ul>
+        <div class="site-nav-footer">
+          <a href="mailto:lendkalemasi@gmail.com">lendkalemasi@gmail.com</a>
+          <a href="https://github.com/LendKalemasi" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href="https://www.linkedin.com/in/lend-kalemasi-940168328/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+        </div>
+      </nav>
+
+      <p class="header-clock" aria-label="Local time in Bremen">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>Bremen</span>
+        <time class="js-clock" datetime="">--:--</time>
+      </p>
 
       <button
         class="nav-toggle"
@@ -1202,290 +91,323 @@
         aria-expanded="false"
         aria-label="Open navigation menu"
       >
+        <span class="nav-toggle-label" aria-hidden="true">Menu</span>
         <span class="nav-toggle-lines" aria-hidden="true"></span>
       </button>
-
-      <nav class="site-nav" id="siteNav" aria-label="Primary navigation">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#experience">Experience</a>
-        <a href="#contact">Contact</a>
-      </nav>
     </div>
   </header>
 
-  <main id="main-content">
-    <div class="shell">
-      <section class="hero" id="home" aria-labelledby="hero-title">
-        <div data-reveal>
-          <p class="eyebrow">Computer Science student · Bremen, Germany</p>
-          <h1 id="hero-title">Lend<br />Kalemasi</h1>
-          <p class="hero-role">Building reliable software and useful web experiences.</p>
-          <p class="hero-intro">
-            I enjoy designing and implementing systems across the stack—from low-level C programs to full-stack web projects.
-          </p>
+  <main id="main-content" tabindex="-1">
+    <!-- Hero -->
+    <section class="hero shell" id="home" aria-labelledby="hero-title">
+      <div class="hero-top">
+        <p class="eyebrow" data-hero>Computer Science student · Bremen, Germany</p>
+        <p class="status-pill" data-hero>
+          <span class="status-dot" aria-hidden="true"></span>
+          Open to software engineering internships
+        </p>
+      </div>
 
-          <div class="hero-actions">
-            <a class="button button-primary" href="#projects">View projects <span class="arrow" aria-hidden="true">↓</span></a>
-            <a class="button button-secondary" href="mailto:lendkalemasi@gmail.com">Get in touch <span class="arrow" aria-hidden="true">↗</span></a>
-          </div>
+      <h1 class="hero-title" id="hero-title">
+        <span class="hero-line">Lend</span>
+        <span class="hero-line">Kalemasi<span class="full-stop">.</span></span>
+      </h1>
 
-          <div class="inline-links" aria-label="Professional profiles">
-            <a href="https://github.com/LendKalemasi" target="_blank" rel="noopener noreferrer">GitHub <span class="arrow" aria-hidden="true">↗</span></a>
-            <a href="https://www.linkedin.com/in/lend-kalemasi-940168328/" target="_blank" rel="noopener noreferrer">LinkedIn <span class="arrow" aria-hidden="true">↗</span></a>
-          </div>
-
-          <p class="hero-note"><span>//</span> I am currently looking for software engineering internship opportunities.</p>
-        </div>
-
-        <div class="hero-side" data-reveal>
-          <div class="portrait-wrap">
-            <img
-              class="portrait"
-              src="photoCV.JPG"
-              width="3024"
-              height="3547"
-              alt="Portrait of Lend Kalemasi"
+      <figure class="hero-figure" data-hero-figure>
+        <div class="hero-figure-frame">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="assets/img/portrait-560.webp 560w, assets/img/portrait-880.webp 880w, assets/img/portrait-1200.webp 1200w"
+              sizes="(max-width: 47.99rem) 72vw, 30vw"
             />
-          </div>
-          <aside class="availability-card" aria-label="Current availability">
-            <p class="availability-label">Currently</p>
-            <p class="availability-copy">Open to software engineering internships and new technical challenges.</p>
-          </aside>
+            <img
+              class="hero-portrait"
+              src="assets/img/portrait-880.jpg"
+              width="880"
+              height="1100"
+              alt="Portrait of Lend Kalemasi"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </picture>
         </div>
-      </section>
+        <figcaption class="hero-caption">
+          <span>Fig. 01 — Bremen</span>
+          <span>53.08° N, 8.80° E</span>
+        </figcaption>
+      </figure>
 
-      <section class="section" id="about" aria-labelledby="about-title">
-        <div class="section-header" data-reveal>
-          <div>
-            <p class="section-kicker">01 / About</p>
-            <h2 class="section-heading" id="about-title">A practical, systems-minded builder.</h2>
-          </div>
-          <p class="section-lede">
-            I am a BSc Computer Science student focused on turning ideas into software that is clear, reliable, and useful.
-          </p>
+      <div class="hero-body">
+        <p class="hero-role" data-hero>Building reliable software and useful web experiences.</p>
+        <p class="hero-intro" data-hero>
+          I enjoy designing and implementing systems across the stack — from low-level C programs to full-stack web projects.
+        </p>
+        <div class="hero-actions" data-hero>
+          <a class="button button-primary" href="#projects">
+            View projects <span class="button-icon" aria-hidden="true">↓</span>
+          </a>
+          <a class="button button-ghost" href="mailto:lendkalemasi@gmail.com">
+            Get in touch <span class="button-icon" aria-hidden="true">↗</span>
+          </a>
         </div>
+      </div>
 
-        <div class="about-grid" data-reveal>
-          <p class="about-copy">
-            I like the work between an idea and a dependable result: <strong>shaping the data model, making the interface understandable, and handling the details that make software hold up.</strong> My projects span web applications, APIs, command-line tools, and foundational programming.
+      <dl class="spec-strip" data-hero>
+        <div>
+          <dt>Based in</dt>
+          <dd>Bremen, Germany</dd>
+        </div>
+        <div>
+          <dt>Studying</dt>
+          <dd>BSc Computer Science</dd>
+        </div>
+        <div>
+          <dt>Builds</dt>
+          <dd>Systems, APIs &amp; web apps</dd>
+        </div>
+        <div>
+          <dt>Profiles</dt>
+          <dd class="spec-links">
+            <a class="text-link" href="https://github.com/LendKalemasi" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+            <a class="text-link" href="https://www.linkedin.com/in/lend-kalemasi-940168328/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+          </dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- About -->
+    <section class="section about" id="about" aria-labelledby="about-title">
+      <div class="shell about-grid">
+        <header class="about-aside">
+          <p class="kicker" data-decrypt>01 — About</p>
+          <h2 class="section-title section-title--sm" id="about-title" data-reveal>A practical, systems-minded builder<span class="full-stop">.</span></h2>
+        </header>
+
+        <div class="about-main">
+          <p class="statement" data-scroll-reveal>
+            I like the work between an idea and a dependable result: <strong>shaping the data model, making the interface understandable, and handling the details that make software hold up.</strong>
           </p>
-          <ol class="focus-list">
-            <li>
-              <span class="focus-index">01</span>
-              <div>
+
+          <div class="about-detail">
+            <p class="lede" data-reveal>
+              I am a BSc Computer Science student focused on turning ideas into software that is clear, reliable, and useful. My projects span web applications, APIs, command-line tools, and foundational programming.
+            </p>
+
+            <ol class="focus-list">
+              <li data-reveal>
+                <span class="focus-index">01</span>
                 <h3>Study</h3>
                 <p>BSc Computer Science</p>
-              </div>
-            </li>
-            <li>
-              <span class="focus-index">02</span>
-              <div>
+              </li>
+              <li data-reveal>
+                <span class="focus-index">02</span>
                 <h3>Build</h3>
                 <p>Systems, APIs, and web applications with a practical purpose.</p>
-              </div>
-            </li>
-            <li>
-              <span class="focus-index">03</span>
-              <div>
+              </li>
+              <li data-reveal>
+                <span class="focus-index">03</span>
                 <h3>Looking for</h3>
                 <p>Software engineering internships where I can learn and contribute.</p>
-              </div>
-            </li>
-          </ol>
-        </div>
-      </section>
-
-      <section class="section" id="projects" aria-labelledby="projects-title">
-        <div class="section-header" data-reveal>
-          <div>
-            <p class="section-kicker">02 / Selected work</p>
-            <h2 class="section-heading" id="projects-title">Projects with an engineering focus.</h2>
+              </li>
+            </ol>
           </div>
-          <p class="section-lede">
-            A selection of projects. Expand a project to see the technical scope, or open its source on GitHub.
-          </p>
         </div>
+      </div>
+    </section>
 
-        <div class="projects">
-          <article class="project" data-reveal>
-            <div class="project-index">
-              <strong>01</strong>
-              <span>AI data application</span>
+    <!-- Projects -->
+    <section class="section projects" id="projects" aria-labelledby="projects-title">
+      <div class="shell">
+        <header class="section-head">
+          <p class="kicker" data-decrypt>02 — Selected work</p>
+          <div class="section-head-row">
+            <h2 class="section-title" id="projects-title" data-reveal>
+              Projects with an engineering focus<span class="full-stop">.</span><sup class="count" aria-label="4 projects">(04)</sup>
+            </h2>
+            <p class="lede" data-reveal>
+              A selection of projects. Expand a project to see the technical scope, or open its source on GitHub.
+            </p>
+          </div>
+        </header>
+
+        <ol class="project-list">
+          <li class="project" data-reveal>
+            <span class="project-index" aria-hidden="true">01</span>
+            <div class="project-head">
+              <p class="project-type">AI data application · Next.js + Python</p>
+              <h3 class="project-title">AI Data Analyst</h3>
             </div>
-            <div class="project-main">
-              <p class="item-kicker">Next.js + Python</p>
-              <h3>AI Data Analyst</h3>
+            <div class="project-body">
               <p class="project-summary">
                 An AI-assisted data analysis application where users upload datasets and ask natural-language questions to explore computed results.
               </p>
-              <details>
+              <details class="project-details">
                 <summary>Technical details</summary>
                 <div class="project-notes">
-                  <span><strong>Built:</strong> a Next.js interface and analysis workflow for CSV ingestion, data profiling, read-only SQL, and generated Python analysis.</span>
-                  <span><strong>Includes:</strong> SQLite data processing, chart and table results, and a restricted FastAPI service for pandas and NumPy execution.</span>
+                  <p><strong>Built:</strong> a Next.js interface and analysis workflow for CSV ingestion, data profiling, read-only SQL, and generated Python analysis.</p>
+                  <p><strong>Includes:</strong> SQLite data processing, chart and table results, and a restricted FastAPI service for pandas and NumPy execution.</p>
                 </div>
               </details>
             </div>
             <div class="project-aside">
               <ul class="tag-list" aria-label="Technologies used">
-                <li class="tag">TypeScript</li>
-                <li class="tag">React</li>
-                <li class="tag">Next.js</li>
-                <li class="tag">Python</li>
-                <li class="tag">FastAPI</li>
-                <li class="tag">Pandas</li>
-                <li class="tag">SQLite</li>
+                <li>TypeScript</li>
+                <li>React</li>
+                <li>Next.js</li>
+                <li>Python</li>
+                <li>FastAPI</li>
+                <li>Pandas</li>
+                <li>SQLite</li>
               </ul>
-              <a class="project-link" href="https://github.com/LendKalemasi/insightlab-ai-data-analyst" target="_blank" rel="noopener noreferrer">
-                View source <span class="arrow" aria-hidden="true">↗</span>
+              <a class="source-link" href="https://github.com/LendKalemasi/insightlab-ai-data-analyst" target="_blank" rel="noopener noreferrer">
+                View source<span class="visually-hidden"> of AI Data Analyst</span> <span class="source-arrow" aria-hidden="true">↗</span>
               </a>
             </div>
-          </article>
+          </li>
 
-          <article class="project" data-reveal>
-            <div class="project-index">
-              <strong>02</strong>
-              <span>Database system</span>
+          <li class="project" data-reveal>
+            <span class="project-index" aria-hidden="true">02</span>
+            <div class="project-head">
+              <p class="project-type">Database system · DBMS</p>
+              <h3 class="project-title">Lost &amp; Found Web Database</h3>
             </div>
-            <div class="project-main">
-              <p class="item-kicker">DBMS</p>
-              <h3>Lost &amp; Found Web Database</h3>
+            <div class="project-body">
               <p class="project-summary">
                 A university lost-and-found system for reporting, searching, and tracking items with a description, photo, and location.
               </p>
-              <details>
+              <details class="project-details">
                 <summary>Technical details</summary>
                 <div class="project-notes">
-                  <span><strong>Built:</strong> a web database workflow for students to report and search for lost items.</span>
-                  <span><strong>Includes:</strong> administrator verification and status updates to help keep reports accurate.</span>
+                  <p><strong>Built:</strong> a web database workflow for students to report and search for lost items.</p>
+                  <p><strong>Includes:</strong> administrator verification and status updates to help keep reports accurate.</p>
                 </div>
               </details>
             </div>
             <div class="project-aside">
               <ul class="tag-list" aria-label="Technologies used">
-                <li class="tag">HTML</li>
-                <li class="tag">PHP</li>
-                <li class="tag">SQL</li>
-                <li class="tag">JavaScript</li>
+                <li>HTML</li>
+                <li>PHP</li>
+                <li>SQL</li>
+                <li>JavaScript</li>
               </ul>
-              <a class="project-link" href="https://github.com/lostnfound-dev-web/Lost-Found" target="_blank" rel="noopener noreferrer">
-                View source <span class="arrow" aria-hidden="true">↗</span>
+              <a class="source-link" href="https://github.com/lostnfound-dev-web/Lost-Found" target="_blank" rel="noopener noreferrer">
+                View source<span class="visually-hidden"> of Lost &amp; Found Web Database</span> <span class="source-arrow" aria-hidden="true">↗</span>
               </a>
             </div>
-          </article>
+          </li>
 
-          <article class="project" data-reveal>
-            <div class="project-index">
-              <strong>03</strong>
-              <span>Command-line app</span>
+          <li class="project" data-reveal>
+            <span class="project-index" aria-hidden="true">03</span>
+            <div class="project-head">
+              <p class="project-type">Command-line app · Python</p>
+              <h3 class="project-title">Todo List with Categories</h3>
             </div>
-            <div class="project-main">
-              <p class="item-kicker">Python</p>
-              <h3>Todo List with Categories</h3>
+            <div class="project-body">
               <p class="project-summary">
                 A command-line task manager that organizes work by category and supports complete CRUD operations for both tasks and categories.
               </p>
-              <details>
+              <details class="project-details">
                 <summary>Technical details</summary>
                 <div class="project-notes">
-                  <span><strong>Built with:</strong> object-oriented Python, dictionaries, file handling, and error handling.</span>
-                  <span><strong>Tested with:</strong> Pytest.</span>
+                  <p><strong>Built with:</strong> object-oriented Python, dictionaries, file handling, and error handling.</p>
+                  <p><strong>Tested with:</strong> Pytest.</p>
                 </div>
               </details>
             </div>
             <div class="project-aside">
               <ul class="tag-list" aria-label="Technologies used">
-                <li class="tag">Python</li>
-                <li class="tag">OOP</li>
-                <li class="tag">Dictionaries</li>
-                <li class="tag">JSON</li>
-                <li class="tag">Pytest</li>
+                <li>Python</li>
+                <li>OOP</li>
+                <li>Dictionaries</li>
+                <li>JSON</li>
+                <li>Pytest</li>
               </ul>
-              <a class="project-link" href="https://github.com/LendKalemasi/Todo-List-with-Categories" target="_blank" rel="noopener noreferrer">
-                View source <span class="arrow" aria-hidden="true">↗</span>
+              <a class="source-link" href="https://github.com/LendKalemasi/Todo-List-with-Categories" target="_blank" rel="noopener noreferrer">
+                View source<span class="visually-hidden"> of Todo List with Categories</span> <span class="source-arrow" aria-hidden="true">↗</span>
               </a>
             </div>
-          </article>
+          </li>
 
-          <article class="project" data-reveal>
-            <div class="project-index">
-              <strong>04</strong>
-              <span>Backend API</span>
+          <li class="project" data-reveal>
+            <span class="project-index" aria-hidden="true">04</span>
+            <div class="project-head">
+              <p class="project-type">Backend API · FastAPI</p>
+              <h3 class="project-title">Taskflow API</h3>
             </div>
-            <div class="project-main">
-              <p class="item-kicker">FastAPI</p>
-              <h3>Taskflow API</h3>
+            <div class="project-body">
               <p class="project-summary">
                 A lightweight REST API for managing tasks, with validation and interactive API documentation built into the development workflow.
               </p>
-              <details>
+              <details class="project-details">
                 <summary>Technical details</summary>
                 <div class="project-notes">
-                  <span><strong>Built:</strong> task CRUD endpoints with FastAPI and SQLite.</span>
-                  <span><strong>Includes:</strong> automatic data validation and interactive API documentation.</span>
+                  <p><strong>Built:</strong> task CRUD endpoints with FastAPI and SQLite.</p>
+                  <p><strong>Includes:</strong> automatic data validation and interactive API documentation.</p>
                 </div>
               </details>
             </div>
             <div class="project-aside">
               <ul class="tag-list" aria-label="Technologies used">
-                <li class="tag">Python</li>
-                <li class="tag">FastAPI</li>
-                <li class="tag">SQLite</li>
-                <li class="tag">REST</li>
-                <li class="tag">CRUD</li>
+                <li>Python</li>
+                <li>FastAPI</li>
+                <li>SQLite</li>
+                <li>REST</li>
+                <li>CRUD</li>
               </ul>
-              <a class="project-link" href="https://github.com/LendKalemasi/taskflow-api" target="_blank" rel="noopener noreferrer">
-                View source <span class="arrow" aria-hidden="true">↗</span>
+              <a class="source-link" href="https://github.com/LendKalemasi/taskflow-api" target="_blank" rel="noopener noreferrer">
+                View source<span class="visually-hidden"> of Taskflow API</span> <span class="source-arrow" aria-hidden="true">↗</span>
               </a>
             </div>
-          </article>
-        </div>
-      </section>
+          </li>
+        </ol>
+      </div>
+    </section>
 
-      <section class="section" id="skills" aria-labelledby="skills-title">
-        <div class="section-header" data-reveal>
-          <div>
-            <p class="section-kicker">03 / Technical toolkit</p>
-            <h2 class="section-heading" id="skills-title">Tools I use to get from problem to working software.</h2>
+    <!-- Skills -->
+    <section class="section skills" id="skills" aria-labelledby="skills-title">
+      <div class="shell">
+        <header class="section-head">
+          <p class="kicker" data-decrypt>03 — Technical toolkit</p>
+          <div class="section-head-row">
+            <h2 class="section-title" id="skills-title" data-reveal>Tools I use to get from problem to working software<span class="full-stop">.</span></h2>
+            <p class="lede" data-reveal>
+              Organised by the role each technology plays in my projects — without inflated proficiency scores.
+            </p>
           </div>
-          <p class="section-lede">
-            Organised by the role each technology plays in my projects - without inflated proficiency scores.
-          </p>
-        </div>
+        </header>
 
-        <div class="skill-groups">
-          <article class="skill-group" data-reveal>
-            <h3>Languages</h3>
-            <ul class="skill-list">
+        <div class="spec-sheet">
+          <article class="spec-group" data-reveal>
+            <h3><span>A</span>Languages</h3>
+            <ul>
               <li>Python</li>
               <li>JavaScript</li>
               <li>C</li>
               <li>SQL</li>
             </ul>
           </article>
-          <article class="skill-group" data-reveal>
-            <h3>Web</h3>
-            <ul class="skill-list">
+          <article class="spec-group" data-reveal>
+            <h3><span>B</span>Web</h3>
+            <ul>
               <li>HTML</li>
               <li>CSS</li>
               <li>PHP</li>
               <li>JavaScript</li>
             </ul>
           </article>
-          <article class="skill-group" data-reveal>
-            <h3>Backend &amp; data</h3>
-            <ul class="skill-list">
+          <article class="spec-group" data-reveal>
+            <h3><span>C</span>Backend &amp; data</h3>
+            <ul>
               <li>FastAPI</li>
               <li>SQLite</li>
               <li>REST APIs</li>
               <li>CRUD workflows</li>
             </ul>
           </article>
-          <article class="skill-group" data-reveal>
-            <h3>Workflow</h3>
-            <ul class="skill-list">
+          <article class="spec-group" data-reveal>
+            <h3><span>D</span>Workflow</h3>
+            <ul>
               <li>Git &amp; GitHub</li>
               <li>Linux</li>
               <li>Pytest</li>
@@ -1493,39 +415,45 @@
             </ul>
           </article>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="section" id="experience" aria-labelledby="experience-title">
-        <div class="section-header" data-reveal>
-          <div>
-            <p class="section-kicker">04 / Experience</p>
-            <h2 class="section-heading" id="experience-title">Learning close to the work.</h2>
-          </div>
-          <p class="section-lede">
+    <!-- Experience -->
+    <section class="section experience" id="experience" aria-labelledby="experience-title">
+      <div class="shell experience-grid">
+        <header class="experience-aside">
+          <p class="kicker" data-decrypt>04 — Experience</p>
+          <h2 class="section-title section-title--sm" id="experience-title" data-reveal>Learning close to the work<span class="full-stop">.</span></h2>
+          <p class="lede" data-reveal>
             Experience in quality assurance, IT support and software development, complemented by current Computer Science studies.
           </p>
-        </div>
 
-        <div class="experience-layout">
-          <ol class="timeline" data-reveal>
-            <li class="timeline-item">
-              <p class="timeline-date">Jun 2026<br />— Aug 2026</p>
-              <div>
-                <h3>IT & Software Development Intern · SIGAL Insurance Group</h3>
-                <p class="timeline-meta">Tirana, Albania</p>
+          <aside class="education-card" data-reveal aria-label="Education">
+            <p class="education-label">Education</p>
+            <h3>BSc Computer Science</h3>
+            <p>Currently developing a practical foundation through coursework and hands-on software projects.</p>
+          </aside>
+        </header>
+
+        <div class="timeline-wrap">
+          <span class="timeline-rail" aria-hidden="true"><span class="timeline-progress"></span></span>
+          <ol class="timeline">
+            <li class="timeline-item" data-reveal>
+              <p class="timeline-date"><time datetime="2026-06">Jun 2026</time> — <time datetime="2026-08">Aug 2026</time></p>
+              <div class="timeline-content">
+                <h3>IT &amp; Software Development Intern</h3>
+                <p class="timeline-meta"><span>SIGAL Insurance Group</span> · Tirana, Albania</p>
                 <ul class="timeline-points">
-                  <li>Contributed to automating and improving an internal workflow for processing insurance-related data,
-helping reduce manual work and improve efficiency.</li>
-                  <li>Assisted in identifying and resolving technical issues in internal software systems, helping ensure reliable
-day-to-day operations.</li>
+                  <li>Contributed to automating and improving an internal workflow for processing insurance-related data, helping reduce manual work and improve efficiency.</li>
+                  <li>Assisted in identifying and resolving technical issues in internal software systems, helping ensure reliable day-to-day operations.</li>
                 </ul>
               </div>
             </li>
-            <li class="timeline-item">
-              <p class="timeline-date">Aug 2025<br />— Dec 2025</p>
-              <div>
-                <h3>Website and App Bug Tester · testIO</h3>
-                <p class="timeline-meta">Berlin, Germany</p>
+            <li class="timeline-item" data-reveal>
+              <p class="timeline-date"><time datetime="2025-08">Aug 2025</time> — <time datetime="2025-12">Dec 2025</time></p>
+              <div class="timeline-content">
+                <h3>Website and App Bug Tester</h3>
+                <p class="timeline-meta"><span>testIO</span> · Berlin, Germany</p>
                 <ul class="timeline-points">
                   <li>Tested and documented bugs in web and mobile applications before release.</li>
                   <li>Worked with developers to reproduce and resolve issues.</li>
@@ -1533,11 +461,11 @@ day-to-day operations.</li>
                 </ul>
               </div>
             </li>
-            <li class="timeline-item">
-              <p class="timeline-date">Jun 2025<br />— Aug 2025</p>
-              <div>
-                <h3>IT Intern · Artan Ngjeci Transport &amp; Logistics</h3>
-                <p class="timeline-meta">Durres, Albania</p>
+            <li class="timeline-item" data-reveal>
+              <p class="timeline-date"><time datetime="2025-06">Jun 2025</time> — <time datetime="2025-08">Aug 2025</time></p>
+              <div class="timeline-content">
+                <h3>IT Intern</h3>
+                <p class="timeline-meta"><span>Artan Ngjeci Transport &amp; Logistics</span> · Durres, Albania</p>
                 <ul class="timeline-points">
                   <li>Maintained and monitored the company server for daily operations.</li>
                   <li>Managed user accounts, access rights, and system settings.</li>
@@ -1546,125 +474,59 @@ day-to-day operations.</li>
               </div>
             </li>
           </ol>
-
-          <aside class="education-card" data-reveal>
-            <p class="item-kicker">Education</p>
-            <h3>BSc Computer Science</h3>
-            <p>Currently developing a practical foundation through coursework and hands-on software projects.</p>
-          </aside>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="section" id="contact" aria-labelledby="contact-title">
-        <div class="contact-panel" data-reveal>
-          <div>
-            <p class="section-kicker">05 / Contact</p>
-            <h2 id="contact-title">Let’s build something useful.</h2>
-            <p>
-              If you would like to discuss a project, internship, or collaboration, I would be glad to hear from you.
-            </p>
-            <div class="contact-actions">
-              <a class="button button-primary" href="mailto:lendkalemasi@gmail.com">Email Lend <span class="arrow" aria-hidden="true">↗</span></a>
+    <!-- Contact -->
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <div class="shell contact-inner">
+        <p class="kicker kicker--on-dark" data-decrypt>05 — Contact</p>
+        <h2 class="contact-title" id="contact-title" data-reveal>Let’s build something useful<span class="full-stop">.</span></h2>
+
+        <div class="contact-grid">
+          <div class="contact-copy" data-reveal>
+            <p>If you would like to discuss a project, internship, or collaboration, I would be glad to hear from you.</p>
+            <div class="email-row">
+              <a class="email-link" href="mailto:lendkalemasi@gmail.com">lendkalemasi@gmail.com</a>
+              <button class="copy-button" type="button" data-copy="lendkalemasi@gmail.com">
+                <span class="copy-label">Copy</span>
+              </button>
+              <span class="visually-hidden" role="status" aria-live="polite" id="copyStatus"></span>
             </div>
+            <a class="button button-signal" href="mailto:lendkalemasi@gmail.com">
+              Email Lend <span class="button-icon" aria-hidden="true">↗</span>
+            </a>
           </div>
-          <div class="contact-links" aria-label="Contact and profiles">
-            <a href="mailto:lendkalemasi@gmail.com"><span>lendkalemasi@gmail.com</span><span class="arrow" aria-hidden="true">↗</span></a>
-            <a href="https://github.com/LendKalemasi" target="_blank" rel="noopener noreferrer"><span>GitHub</span><span class="arrow" aria-hidden="true">↗</span></a>
-            <a href="https://www.linkedin.com/in/lend-kalemasi-940168328/" target="_blank" rel="noopener noreferrer"><span>LinkedIn</span><span class="arrow" aria-hidden="true">↗</span></a>
-            <a href="#home"><span>Back to top</span><span class="arrow" aria-hidden="true">↑</span></a>
-          </div>
-        </div>
-      </section>
 
-      <footer>
-        <span>© <span id="year"></span> Lend Kalemasi</span>
-        <a href="mailto:lendkalemasi@gmail.com">Bremen, Germany</a>
-      </footer>
-    </div>
+          <ul class="contact-links" aria-label="Contact and profiles" data-reveal>
+            <li><a href="mailto:lendkalemasi@gmail.com"><span>Email</span><span class="contact-link-meta">lendkalemasi@gmail.com</span><span aria-hidden="true">↗</span></a></li>
+            <li><a href="https://github.com/LendKalemasi" target="_blank" rel="noopener noreferrer"><span>GitHub</span><span class="contact-link-meta">@LendKalemasi</span><span aria-hidden="true">↗</span></a></li>
+            <li><a href="https://www.linkedin.com/in/lend-kalemasi-940168328/" target="_blank" rel="noopener noreferrer"><span>LinkedIn</span><span class="contact-link-meta">Lend Kalemasi</span><span aria-hidden="true">↗</span></a></li>
+          </ul>
+        </div>
+      </div>
+
+    </section>
   </main>
 
-  <script>
-    (() => {
-      const navToggle = document.querySelector("#navToggle");
-      const nav = document.querySelector("#siteNav");
-      const navLinks = [...nav.querySelectorAll("a")];
-      const sections = navLinks
-        .map((link) => document.querySelector(link.getAttribute("href")))
-        .filter(Boolean);
-
-      const setMenuOpen = (open) => {
-        nav.dataset.open = String(open);
-        navToggle.setAttribute("aria-expanded", String(open));
-        navToggle.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
-      };
-
-      navToggle.addEventListener("click", () => {
-        setMenuOpen(nav.dataset.open !== "true");
-      });
-
-      navLinks.forEach((link) => {
-        link.addEventListener("click", () => setMenuOpen(false));
-      });
-
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && nav.dataset.open === "true") {
-          setMenuOpen(false);
-          navToggle.focus();
-        }
-      });
-
-      document.addEventListener("click", (event) => {
-        if (nav.dataset.open === "true" && !nav.contains(event.target) && !navToggle.contains(event.target)) {
-          setMenuOpen(false);
-        }
-      });
-
-      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const revealElements = document.querySelectorAll("[data-reveal]");
-
-      if (reducedMotion || !("IntersectionObserver" in window)) {
-        revealElements.forEach((element) => element.classList.add("is-visible"));
-      } else {
-        revealElements.forEach((element) => element.classList.add("is-ready"));
-
-        const revealObserver = new IntersectionObserver(
-          (entries, observer) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("is-visible");
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.12 }
-        );
-
-        revealElements.forEach((element) => revealObserver.observe(element));
-      }
-
-      if ("IntersectionObserver" in window) {
-        const navObserver = new IntersectionObserver(
-          (entries) => {
-            const visibleEntry = entries.find((entry) => entry.isIntersecting);
-            if (!visibleEntry) return;
-
-            navLinks.forEach((link) => {
-              const current = link.getAttribute("href") === "#" + visibleEntry.target.id;
-              if (current) {
-                link.setAttribute("aria-current", "page");
-              } else {
-                link.removeAttribute("aria-current");
-              }
-            });
-          },
-          { rootMargin: "-35% 0px -55% 0px", threshold: 0 }
-        );
-
-        sections.forEach((section) => navObserver.observe(section));
-      }
-
-      document.querySelector("#year").textContent = new Date().getFullYear();
-    })();
-  </script>
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <p class="footer-mark">
+        <img src="assets/img/logo-64.png" width="28" height="28" alt="" />
+        <span>© <span id="year">2026</span> Lend Kalemasi</span>
+      </p>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+      </nav>
+      <p class="footer-meta">
+        <span>Bremen, Germany · <time class="js-clock" datetime="">--:--</time></span>
+        <a class="back-to-top" href="#home">Back to top <span aria-hidden="true">↑</span></a>
+      </p>
+    </div>
+  </footer>
 </body>
 </html>
